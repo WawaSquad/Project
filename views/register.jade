@@ -1,0 +1,27 @@
+extends signinLayout
+block content
+ .container
+    .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              | Registration
+              div
+                small Please fill out the form below
+          form.form-horizontal(role='form')
+            .form-group
+              label.col-lg-1.control-label(for='inputUsername') Username
+              .col-sm-10
+                input#inputEmail3.form-control(type='username')
+            .form-group
+              label.col-sm-1.control-label(for='inputPassword3') Password
+              .col-sm-10
+                input#inputPassword3.form-control(type='password')
+            .form-group
+              label.col-sm-1.control-label(for='inputEmail') Email Address
+              .col-sm-10
+                input#inputEmail.form-control(type='email')
+              .col-sm-offset-2.col-sm-10
+            .form-group
+              .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Register 

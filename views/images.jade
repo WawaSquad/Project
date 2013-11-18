@@ -1,0 +1,112 @@
+extends layout2
+block content
+
+    .container
+        
+      .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              | Board Name Goes Here
+            h3
+              | Board description goes here
+          .row
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/people')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Rate
+                    a.btn(href='#modal-container-196153', role='button', data-toggle='modal') Pin
+        
+                    #modal-container-196153.modal.fade(role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                      .modal-dialog
+                         .modal-content
+                            .modal-header
+                                 button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                 h4#myModalLabel.modal-title
+                                   | Modal title
+                            .modal-body
+                               p Board1
+                               p Board2
+                               p Board2
+                            .modal-footer
+                               button.btn.btn-default(type='button', data-dismiss='modal') Close
+                               button.btn.btn-primary(type='button') Pin It
+                    
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/city')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Action
+                    a.btn(href='#') Action
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/sports')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Action
+                    a.btn(href='#') Action
+          .row
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/people')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Action
+                    a.btn(href='#') Action
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/city')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Action
+                    a.btn(href='#') Action
+            .col-md-4
+              .thumbnail
+                img(alt='300x200', src='http://lorempixel.com/600/200/sports')
+                .caption
+                  h3
+                    | Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                  p
+                    a.btn.btn-primary(href='#') Action
+                    a.btn(href='#') Action
+          ul.pagination
+            li
+              a(href='#') Prev
+            li
+              a(href='#') 1
+            li
+              a(href='#') 2
+            li
+              a(href='#') 3
+            li
+              a(href='#') 4
+            li
+              a(href='#') 5
+            li
+              a(href='#') Next
+

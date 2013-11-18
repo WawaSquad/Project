@@ -6,8 +6,10 @@
 var express = require('express');
 var routes = require('./routes');
 var signin = require('./routes/signin');
+var register = require('./routes/register');
 var userPage = require('./routes/userPage');
 var board = require('./routes/board');
+var images = require('./routes/images');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -34,8 +36,10 @@ app.use(express.errorHandler());
 
 app.get('/', routes.index);
 app.get('/signin', signin.signin);
+app.get('/register', register.register);
 app.get('/userPage', userPage.userPage);
 app.get('/board', board.board);
+app.get('/images', images.images);
 
 //app.get('/users', user.list);
 

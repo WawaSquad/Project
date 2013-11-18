@@ -1,6 +1,58 @@
 extends layout
 
 block content
-	div.container
-		h1 Program Name
-		p Hello World
+  .container
+    .row.clearfix
+        .col-md-12.column
+          #carousel-599484.carousel.slide
+            ol.carousel-indicators
+              li.active(data-slide-to='0', data-target='#carousel-599484')
+              li(data-slide-to='1', data-target='#carousel-599484')
+              li(data-slide-to='2', data-target='#carousel-599484')
+            .carousel-inner
+              .item.active
+                img(alt='', src='http://lorempixel.com/1600/500/sports/1')
+                .carousel-caption
+                  h4
+                    | First Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+              .item
+                img(alt='', src='http://lorempixel.com/1600/500/sports/2')
+                .carousel-caption
+                  h4
+                    | Second Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+              .item
+                img(alt='', src='http://lorempixel.com/1600/500/sports/3')
+                .carousel-caption
+                  h4
+                    | Third Thumbnail label
+                  p
+                    | Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+            a.left.carousel-control(href='#carousel-599484', data-slide='prev')
+              span.glyphicon.glyphicon-chevron-left
+            a.right.carousel-control(href='#carousel-599484', data-slide='next')
+              span.glyphicon.glyphicon-chevron-right
+      .row.clearfix
+        .col-md-6.column
+          p
+            | Lorem ipsum dolor sit amet,
+            strong consectetur adipiscing elit
+            | . Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus.
+            em
+              | Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.
+            | Proin massa magna, vulputate nec bibendum nec, posuere nec lacus.
+            small
+              | Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.
+        .col-md-6.column
+          p
+            | Lorem ipsum dolor sit amet,
+            strong consectetur adipiscing elit
+            | . Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus.
+            em
+              | Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.
+            | Proin massa magna, vulputate nec bibendum nec, posuere nec lacus.
+            small
+              | Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.

@@ -1,5 +1,4 @@
-Fixed  
-
+//Fixed Navbar
 .container
  .row.clearfix
    .col-md-12.column
@@ -14,14 +13,13 @@ Fixed
       // Collect the nav links, forms, and other content for toggling
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         ul.nav.navbar-nav
-          li.active
-            a(href='/board') Boards
           li
-            a(href='#') Link
+            a(href='/board') My Board
           li
-            a(href='#') Link
+            a(href='/board') Friends Board
           li
-            a(href='#') Link
+            a(href='/images') Image Gallery(For test purpose)
+
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               | Dropdown
@@ -41,9 +39,11 @@ Fixed
                 a(href='#') One more separated link
                
         ul.nav.navbar-nav.navbar-right
+         li
+            a(href='#') Log Out
          form.navbar-form.navbar-left(role='search')
            .form-group
-             input.form-control(type='text', placeholder='Search')
+             input.form-control(type='text', placeholder='Search Tags')
            button.btn.btn-default(type='submit') Submit
 
       // /.navbar-collapse
