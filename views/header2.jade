@@ -41,9 +41,9 @@
         ul.nav.navbar-nav.navbar-right
          li
             a(href='#') Log Out
-         form.navbar-form.navbar-left(role='search')
+         form.navbar-form.navbar-left(method='get', role='search')
            .form-group
-             input.form-control(name='searchTags',type='text', placeholder='Search Tags')
-           button.btn.btn-default(type='button',onclick="JavaScript:this.form.action='/photoSearch';this.form.submit()") Submit
+             input.form-control(method='get', name='searchTags',type='text', placeholder='Search Tags')
+           button.btn.btn-default(type='button',onclick="JavaScript:this.form.action='/photoSearch'+'&PageNum=1';this.form.submit()") Submit
 
       // /.navbar-collapse
