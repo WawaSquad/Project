@@ -11,10 +11,12 @@ function query_db(res,searchTags,PageNum) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-		  	if(PageNum==null)
-		  		PageNum=1;
+	    	
+		  	if(PageNum==null||PageNum=="")
+		  		PageNum="1";
+		  	var intPageNum=parseInt(PageNum);
 	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Tags.tag LIKE '%" + searchTags + 
-  			"%' AND Photo.photoID=Tags.photoID AND ROWNUM>="+6*(PageNum-1)+" AND ROWNUM<="+6*PageNum;
+  			"%' AND Photo.photoID=Tags.photoID AND ROWNUM>="+6*(intPageNum-1)+" AND ROWNUM<="+6*intPageNum;
 		  	connection.execute(query, 
 		  			   [], 
 		  			   function(err, results) {
@@ -22,7 +24,7 @@ function query_db(res,searchTags,PageNum) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close(); // done with the connection
-		  	    	output_photos(res, searchTags, results);
+		  	    	output_photos(res, searchTags, PageNum,results);
 		  	    }
 		
 		  	}); // end connection.execute
@@ -30,9 +32,10 @@ function query_db(res,searchTags,PageNum) {
 	  }); // end oracle.connect
 	}
 
-function output_photos(res,searchTags,results) {
+function output_photos(res,searchTags,PageNum, results) {
 	res.render('photoSearch',
 		   {searchTags: searchTags,
+		    PageNum: PageNum,
 		     results: results }
 	  );
 }

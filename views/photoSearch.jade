@@ -9,10 +9,14 @@ block content
             h1
               |  You might be interested in these results 
           
-        for (var inx = 0; inx < results.length; inx++)
-          .row
-            .col-md-4
-              .thumbnail
+            - if(results.length==0)
+                 p
+                   | Sorry, we cannot find photos mathing your given tag "#{searchTags}" in Page#{PageNum}
+              else
+               .row
+                .col-md-4
+                  .thumbnail
+               for (var inx = 0; inx < results.length; inx++)
                 img(alt='300x200', src='results[inx].url')
                 .caption
                   h3
@@ -40,16 +44,16 @@ block content
                     
            
           ul.pagination
-            
+          
             li
-              a(href='/photoSearch'+'?PageNum=1&searchTags='+#{searchTags}) 1
+              a(href='/photoSearch'+'?PageNum=1&searchTags=#{searchTags}') 1
             li
-              a(href='/photoSearch'+'?PageNum=2&searchTags='+#{searchTags}) 2
+              a(href='/photoSearch'+'?PageNum=2&searchTags=#{searchTags}') 2
             li
-              a(href='/photoSearch'+'?PageNum=3&searchTags='+#{searchTags}) 3
+              a(href='/photoSearch'+'?PageNum=3&searchTags=#{searchTags}') 3
             li
-              a(href='/photoSearch'+'?PageNum=4&searchTags='+#{searchTags}) 4
+              a(href='/photoSearch'+'?PageNum=4&searchTags=#{searchTags}') 4
             li
-              a(href='/photoSearch'+'?PageNum=5&searchTags='+#{searchTags}) 5
+              a(href='/photoSearch'+'?PageNum=5&searchTags=#{searchTags}') 5
             
 
