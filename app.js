@@ -10,6 +10,7 @@ var register = require('./routes/register');
 var userPage = require('./routes/userPage');
 var board = require('./routes/board');
 var images = require('./routes/images');
+var photoSearch = require('./routes/photoSearch');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -40,6 +41,7 @@ app.get('/register', register.register);
 app.get('/userPage', userPage.userPage);
 app.get('/board', board.board);
 app.get('/images', images.images);
+app.get('/photoSearch', photoSearch.photoSearch);
 
 //app.get('/users', user.list);
 

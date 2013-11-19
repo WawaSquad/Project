@@ -43,7 +43,7 @@
             a(href='#') Log Out
          form.navbar-form.navbar-left(role='search')
            .form-group
-             input.form-control(type='text', placeholder='Search Tags')
-           button.btn.btn-default(type='submit') Submit
+             input.form-control(name='searchTags',type='text', placeholder='Search Tags')
+           button.btn.btn-default(type='button',onclick="JavaScript:this.form.action='/photoSearch';this.form.submit()") Submit
 
       // /.navbar-collapse
