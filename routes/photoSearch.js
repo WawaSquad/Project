@@ -36,7 +36,7 @@ function output_photos(res,searchTags,PageNum, results) {
 	res.render('photoSearch',
 		   {searchTags: searchTags,
 		    PageNum: PageNum,
-		     results: results }
+		    results: results }
 	  );
 }
 

@@ -12,11 +12,11 @@ block content
             - if(results.length==0)
                  p
                    | Sorry, we cannot find photos mathing your given tag "#{searchTags}" in Page#{PageNum}
-              else
+            -  else
                .row
                 .col-md-4
                   .thumbnail
-               for (var inx = 0; inx < results.length; inx++)
+            -   for (var inx = 0; inx < results.length; inx++)
                 img(alt='300x200', src='results[inx].url')
                 .caption
                   h3
