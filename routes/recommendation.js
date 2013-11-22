@@ -14,13 +14,13 @@ var getRandomInt=function (min,max)
 {return Math.floor(Math.random() * (max - min + 1)) + min;}
 
 
-function query_db_recommendation(res,userID) {
+function query_db_recommendation() {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
 	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-	    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
+	    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+Users.userID+
 	    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC)";
 		  	connection.execute(query, 
 		  			   [], 
@@ -30,12 +30,12 @@ function query_db_recommendation(res,userID) {
 		  	    } else {
 		  	    	if(results.length<=5){
 		  	    		connection.close();
-		  	    		output_photos(res, userID);
+		  	    		updateRecommendations(results);
 		  	    	}
 		  	    	else{
 		  	    		var start=getRandomInt(0,results.length-5);
 		  	    		query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-		    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
+		    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+Users.userID+
 		    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC) AND ROWNUM>="+start+" AND ROWNUM<="+(start+5);
 		  	    		connection.execute(query, 
 		 		  			   [], 
@@ -44,7 +44,7 @@ function query_db_recommendation(res,userID) {
 		 		  	    	console.log(err);
 		 		  	    } else {
 		 		  	    	connection.close();
-			  	    		output_photos(res, userID);
+			  	    		updateRecommendations(results);
 		 		  	      }
 		 		  	    }
 		  	    	}
@@ -55,13 +55,8 @@ function query_db_recommendation(res,userID) {
 	  }); // end oracle.connect
 	}
 
-function output_photos(res,searchTags,PageNum, results) {
-	res.render('userPage',
-		   {Username: userID,
-		    results: results }
-	  );
+function updateRecommendations(results) {
+	Users.recommendations=results;
 }
 
-exports.photoRecommend = function(req, res){
-	query_db(res,req.session.Username);
-};
+

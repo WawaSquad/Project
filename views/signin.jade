@@ -1,10 +1,10 @@
 extends signinLayout
 block content
 	.container
-		form.form-signin
+		form.form-signin(action='/signin',method='get')
 			h2.form-signin-heading Please sign in
-			input.form-control(type='text', placeholder='UserName', autofocus='autofocus')
-			input.form-control(type='password', placeholder='Password')
+			input.form-control(name='userID',type='text', placeholder='UserName', autofocus='autofocus')
+			input.form-control(name='password',type='password', placeholder='Password')
 			label.checkbox
 			input(type='checkbox', value='remember-me')
 			| Remember me
