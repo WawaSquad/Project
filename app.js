@@ -45,6 +45,13 @@ app.get('/photoSearch', photoSearch.photoSearch);
 
 //app.get('/users', user.list);
 
+app.locals({
+    Users: {
+        userID,
+        recommendations
+    }
+});
+
 http.createServer(app).listen(app.get('port'), function(){
 console.log('Express server listening on port ' + app.get('port'));
 });
