@@ -1,5 +1,5 @@
 
-//having userID as global variable?
+//having userID as global variable
 //filter recommending photos based on tags of top three rating photos by that user.
 //using random number for ROWNUM of querying results.
 
@@ -20,7 +20,7 @@ function query_db_recommendation() {
 	    	console.log(err);
 	    } else {
 	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-	    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+Users.userID+
+	    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
 	    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC)";
 		  	connection.execute(query, 
 		  			   [], 
@@ -30,12 +30,12 @@ function query_db_recommendation() {
 		  	    } else {
 		  	    	if(results.length<=5){
 		  	    		connection.close();
-		  	    		updateRecommendations(results);
+		  	    		global.Recommendations=results;
 		  	    	}
 		  	    	else{
-		  	    		var start=getRandomInt(0,results.length-5);
+		  	    		var start=getRandomInt(0,(results.length-5));
 		  	    		query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-		    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+Users.userID+
+		    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
 		    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC) AND ROWNUM>="+start+" AND ROWNUM<="+(start+5);
 		  	    		connection.execute(query, 
 		 		  			   [], 
@@ -44,9 +44,9 @@ function query_db_recommendation() {
 		 		  	    	console.log(err);
 		 		  	    } else {
 		 		  	    	connection.close();
-			  	    		updateRecommendations(results);
+		 		  	    	global.Recommendations=results;
 		 		  	      }
-		 		  	    }
+		 		  	    });
 		  	    	}
 		  	    }
 		
@@ -55,8 +55,6 @@ function query_db_recommendation() {
 	  }); // end oracle.connect
 	}
 
-function updateRecommendations(results) {
-	Users.recommendations=results;
-}
+
 
 

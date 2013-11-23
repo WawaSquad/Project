@@ -14,7 +14,6 @@ var photoSearch = require('./routes/photoSearch');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
-
 var app = express();
 
 
@@ -38,19 +37,13 @@ app.use(express.errorHandler());
 app.get('/', routes.index);
 app.get('/signin', signin.signin);
 app.get('/register', register.register);
-app.get('/userPage', userPage.userPage);
+app.post('/userPage', userPage.userPage);
 app.get('/board', board.board);
 app.get('/images', images.images);
 app.get('/photoSearch', photoSearch.photoSearch);
 
 //app.get('/users', user.list);
 
-app.locals({
-    Users: {
-        userID,
-        recommendations
-    }
-});
 
 http.createServer(app).listen(app.get('port'), function(){
 console.log('Express server listening on port ' + app.get('port'));
