@@ -1,0 +1,12 @@
+extends layout2
+block content
+  .container
+   form
+   | #{msg} #{photoID}
+   p
+   | Wanna go back to previous results?  
+   p
+   
+   a(href='JavaScript:history.go(-1)') ~~GO BACK~~
+   
+   
