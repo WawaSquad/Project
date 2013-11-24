@@ -17,14 +17,31 @@ block content
                 .col-md-4
                   .thumbnail
             -   for (var inx = 0; inx < results.length; inx++)
-                img(alt='300x200', src='results[inx].url')
+                img(alt='300x200', src='#{results[inx].URL}')
                 .caption
                   h3
                     | Photo ID as below:
                   p
-                    | results[inx].photoID
+                    | #{results[inx].PHOTOID}
                   p
-                    a.btn.btn-primary(href='#') Rate
+                    
+                    a.btn.btn-primary(href='#modal-container-196153', role='button', data-toggle='modal') Rate
+                  - var score;
+                    #modal-container-196153.modal.fade(method='get', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                      .modal-dialog
+                         .modal-content
+                            .modal-header
+                                 button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                 h4#myModalLabel.modal-title
+                                   | Enter your integer rating from 0 to 10
+                            .modal-body
+                              form(method='get')
+                              input(name='score',type='text',onchange="JavaScript:score=document.getElementsByName('score')")
+                              alert(score)
+                            .modal-footer
+                               button.btn.btn-default(type='button', data-dismiss='modal') Close
+                               button.btn.btn-primary(href='/pin_rating'+'?photoID=#{results[inx].PHOTOID}&rating=#{score}') Rate it!
+                  p
                     a.btn(href='#modal-container-196153', role='button', data-toggle='modal') Pin
         
                     #modal-container-196153.modal.fade(role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

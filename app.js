@@ -11,6 +11,7 @@ var userPage = require('./routes/userPage');
 var board = require('./routes/board');
 var images = require('./routes/images');
 var photoSearch = require('./routes/photoSearch');
+var pin_rating=require('./routes/pin_rating');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -38,9 +39,11 @@ app.get('/', routes.index);
 app.get('/signin', signin.signin);
 app.get('/register', register.register);
 app.post('/userPage', userPage.userPage);
+app.get('/userPage', userPage.userPage);
 app.get('/board', board.board);
 app.get('/images', images.images);
 app.get('/photoSearch', photoSearch.photoSearch);
+app.get('/pin_rating', pin_rating.add_rating);
 
 //app.get('/users', user.list);
 

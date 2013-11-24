@@ -2,11 +2,13 @@
 var connectData = { 
   "hostname": "cis550project.cumzrn1o3hle.us-west-2.rds.amazonaws.com", 
   "user": "wawa", 
-  "password": "cis550", 
+  "password": "cis550",
+  "port" : "1521",
   "database": "PENNTR" };
 var oracle =  require("oracle");
 
 function query_db(res,searchTags,PageNum) {
+	var intPageNum;
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
@@ -14,7 +16,7 @@ function query_db(res,searchTags,PageNum) {
 	    	
 		  	if(PageNum==null||PageNum=="")
 		  		PageNum="1";
-		  	var intPageNum=parseInt(PageNum);
+		  	intPageNum=parseInt(PageNum);
 	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Tags.tag LIKE '%" + searchTags + 
   			"%' AND Photo.photoID=Tags.photoID AND rownum>="+6*(intPageNum-1)+" AND rownum<="+6*intPageNum+" ORDER BY Photo.photoID ";
 	    	

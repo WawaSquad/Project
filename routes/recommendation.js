@@ -6,7 +6,8 @@
 var connectData = { 
   "hostname": "cis550project.cumzrn1o3hle.us-west-2.rds.amazonaws.com", 
   "user": "wawa", 
-  "password": "cis550", 
+  "password": "cis550",
+  "port" : "1521",
   "database": "PENNTR" };
 var oracle =  require("oracle");
 
