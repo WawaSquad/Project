@@ -8,24 +8,19 @@ block content
             h1
               | Boards
               div
-                small My Boards
+                small My Friends' Boards
             - if(results.length==0)
                  p
-                   | You have no boards to display
+                   | YoUr friends have no boards to display
             -  else
           .list-group
-            a.list-group-item.active(href='#') My Boards
+            a.list-group-item.active(href='#') My Friends' Boards
             -for (var inx = 0; inx < results.length; inx++) 
              .list-group-item
-              a(href='/photos'+'?boardName=#{results[inx].BOARDNAME}&nextPage=1') #{results[inx].BOARDNAME}
-              
-              
-              
-             
+              a(href='/images') #{results[inx].BOARDNAME}
               
             a.list-group-item.active
               span.badge #{results.length}
               | Total Boards
               
-
 

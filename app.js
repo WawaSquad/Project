@@ -9,9 +9,10 @@ var signin = require('./routes/signin');
 var register = require('./routes/register');
 var userPage = require('./routes/userPage');
 var board = require('./routes/board');
-var images = require('./routes/images');
+var photos = require('./routes/photos');
 var photoSearch = require('./routes/photoSearch');
 var add_rating=require('./routes/add_rating');
+var friendBoard = require('./routes/friendBoard');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -41,10 +42,10 @@ app.get('/register', register.register);
 app.post('/userPage', userPage.userPage);
 app.get('/userPage', userPage.userPage);
 app.get('/board', board.board);
-app.get('/images', images.images);
+app.get('/photos', photos.photos);
 app.get('/photoSearch', photoSearch.photoSearch);
 app.get('/add_rating', add_rating.add_rating);
-
+app.get('/friendBoard', friendBoard.friendBoard);
 //app.get('/users', user.list);
 
 

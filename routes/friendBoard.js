@@ -1,30 +1,27 @@
-
 var connectData = { 
   "hostname": "cis550project.cumzrn1o3hle.us-west-2.rds.amazonaws.com", 
   "user": "wawa", 
-  "password": "cis550",
-  "port" : "1521",
+  "password": "cis550", 
   "database": "PENNTR" };
 var oracle =  require("oracle");
 
-//can only pin one photo once on one board for one specific user
-function add_pin(res,boardNamephotoID) {
+function query_db(res) {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
+  	
+  			var query = "SELECT b.boardName, b.userID FROM Board b, " +
+  			"Friendship f WHERE '" + userID+ "' = f.userID AND f.friendID = b.userID";
 	    	
-	    	var query="INSERT INTO  Pin VALUES ( '"+photoID+"', '"+boardName+"', '"+userID+"')";
-	    	
-		  	connection.execute(query, 
+	    	connection.execute(query, 
 		  			   [], 
 		  			   function(err, results) {
 		  	    if ( err ) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close(); // done with the connection
-		  	    	//alert("You have successfully pinned this photo!");
-		  	    	
+		  	    	output_boards(res, results);
 		  	    }
 		
 		  	}); // end connection.execute
@@ -32,6 +29,13 @@ function add_pin(res,boardNamephotoID) {
 	  }); // end oracle.connect
 	}
 
-exports.add_pin = function(req, res){
-	insert_rating(res,req.query.boardName,req.query.photoID);
+function output_boards(res, results) {
+	res.render('board',
+		   {results: results }
+	  );
+}
+
+exports.friendBoard = function(req, res){
+	query_db(res);
 };
+
