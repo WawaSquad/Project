@@ -1,35 +1,42 @@
 extends layout2
 block content
-
+    -  var current_page = PageNum;
+    -  var inx = 0;
+    -  var page_nation_length = 5;
+    -  var page_section = 0;
+    -  var n_photos_p_page = 5;
+    -  var n_pages = Math.ceil(results.length/n_photos_p_page);
+    
     .container
         
       .row.clearfix
         .col-md-12.column
           .page-header
             h1
-              |  You might be interested in these results 
+            - if(results.length>0)
+              | You might be interested in these results
+            - else
+              | Sorry, we cannot find photos mathing your given tag "#{searchTags}" for Page#{PageNum}
           
-            - if(results.length==0)
-                 p
-                   | Sorry, we cannot find photos mathing your given tag "#{searchTags}" for Page#{PageNum}
-            -  else
-               .row
-                .col-md-4
-                  .thumbnail
+          .row
+            .col-md-4
+               .thumbnail
+             
               #modal-container-196153.modal.fade(method='get', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
                       .modal-dialog
                          .modal-content
                            
-            -   for (var inx = 0; inx < results.length; inx++)
-            
-                img(alt='300x200', src='#{results[inx].URL}')
+            -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
+               -if( inx <= results.length-1 ){
+                img(alt='Failed to load', src="#{results[inx].URL}")
                 .caption
                   h3
-                    | Photo ID as below:
+                    | Photo ID is : #{results[inx].PHOTOID}
                   p
-                    | #{results[inx].PHOTOID}
+                    | Photo URL is : #{results[inx].URL}
                   p
-                  - var currentPhotoIDvalue= results[inx].PHOTOID 
+                   
+                 - var currentPhotoIDvalue= results[inx].PHOTOID
                       .modal-body
                        form(method='get',action='/add_rating')
                           input(name='score',type='text',placeholder='integer value from 0 to 10')
@@ -53,19 +60,49 @@ block content
                             .modal-footer
                                button.btn.btn-default(type='button', data-dismiss='modal') Close
                                button.btn.btn-primary(type='button') Pin It
-                    
+                    -}
+              -} 
+              
+              
+         -if (current_page > 1)
+            - n_prev = parseInt(current_page) - 1;              
+         -else           
+            - n_prev = parseInt(current_page)
+         
+         -if (current_page == n_pages)
+            - n_next = parseInt(current_page);
+         -else
+            - n_next = parseInt(current_page) + 1;
+         
+         - page_section = Math.ceil(current_page / page_nation_length);      
            
+          
+         
           ul.pagination
           
             li
-              a(href='/photoSearch'+'?PageNum=1&searchTags=#{searchTags}') 1
+              a(href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=1') First         
             li
-              a(href='/photoSearch'+'?PageNum=2&searchTags=#{searchTags}') 2
-            li
-              a(href='/photoSearch'+'?PageNum=3&searchTags=#{searchTags}') 3
-            li
-              a(href='/photoSearch'+'?PageNum=4&searchTags=#{searchTags}') 4
-            li
-              a(href='/photoSearch'+'?PageNum=5&searchTags=#{searchTags}') 5
+              a(href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=#{n_prev}') Prev            	            
+              -for (inx = parseInt(page_section); inx < parseInt(page_section) + page_nation_length; inx++){
+               -if(inx > n_pages){
+                  -break;
+               -}
+               -if(inx == current_page){
+                li
+                  a(style="color:green",href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=#{inx}') #{inx}
+               -}
+               -else{
+                li
+                  a(href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=#{inx}') #{inx}
+               -}	
+              -}
             
-
+            li
+              a(href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=#{n_next}') Next
+            li
+              a(href='/photoSearch'+'?searchTags=#{searchTags}&PageNum=#{n_pages}') Last
+              
+          
+           
+                 
