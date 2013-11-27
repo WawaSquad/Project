@@ -21,7 +21,7 @@
 		    	console.log(err);
 		    } else {
 				
-		    	var query="SELECT Users.userID, Users.password FROM Users WHERE Users.userID = '" +  userID + 
+		    	var query="SELECT Users.login, Users.password FROM Users WHERE Users.login = '" +  userID + 
 	  			"' AND Users.password = '"+ password+"' ";
 			  	connection.execute(query, 
 			  			   [], 

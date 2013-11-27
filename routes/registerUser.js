@@ -37,7 +37,7 @@ exports.registerUser = function(req, res){
 			    	console.log(err);
 			    } else {
 					
-			    	var query="SELECT Users.userID FROM Users WHERE Users.userID = '" +  userID + 
+			    	var query="SELECT Users.login FROM Users WHERE Users.login = '" +  userID + 
 		  			"' ";
 				  	connection.execute(query, 
 				  			   [], 
@@ -90,7 +90,7 @@ function query_db2(res,userID,password) {
 		    else
 		    	{
 				
-		    	var query="INSERT INTO Users (userID, password) VALUES( '" +  userID + 
+		    	var query="INSERT INTO Users (login, password) VALUES( '" +  userID + 
 	  			"'  , '"+ password+"') ";
 			  	connection.execute(query, 
 			  			   [], 
