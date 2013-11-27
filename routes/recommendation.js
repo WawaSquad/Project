@@ -1,8 +1,4 @@
 
-//having userID as global variable
-//filter recommending photos based on tags of top three rating photos by that user.
-//using random number for ROWNUM of querying results.
-
 var connectData = { 
   "hostname": "cis550project.cumzrn1o3hle.us-west-2.rds.amazonaws.com", 
   "user": "wawa", 
@@ -11,59 +7,62 @@ var connectData = {
   "database": "PENNTR" };
 var oracle =  require("oracle");
 
-var getRandomInt=function (min,max)
-{return Math.floor(Math.random() * (max - min + 1)) + min;}
 
-
-function query_db_recommendation() {
+function query_db_recommendation_method(res) {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-	    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
-	    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC)";
-		  	connection.execute(query, 
+	    	var subquery1="(SELECT Object.id, object.url FROM Object, Tags "+
+	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source"+
+	    	"AND Tags.tag IN (SELECT Tags.tag FROM Pin, FriendShip, Tags "+
+	    	"WHERE Pin.login=FriendShip.friendID AND Pin.id=Tags.id AND Pin.sourceId= Tags.source "+
+	    	"AND FriendShip.userID='"+userID+"')";
+	    	
+	    	var subquery2="(SELECT Object.id, object.url FROM Object, Tags "+
+	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source"+
+	    	"AND Tags.tag IN (SELECT Interests.interest FROM Users, Interests  "+
+	    	"WHERE Users.login=Interests.login AND Users.login='"+userID+"')";
+	    	
+	    	var subquery3="(SELECT Object.id, object.url FROM Users, Pin, Object  "+
+	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source"+
+	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"')";
+	    	
+	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" MINUS "+subquery3+") ORDER BY dbms_random.value) WHERE ROWNUM<=10"
+	    	
+	    	connection.execute(query, 
 		  			   [], 
 		  			   function(err, results) {
 		  	    if ( err ) {
 		  	    	console.log(err);
 		  	    } else {
-		  	    	if(results.length<=5){
-		  	    		connection.close();
-		  	    		global.Recommendations=results;
-		  	    		
-		  	    		//loadresults(res,results);
+		  	    	connection.close();
+		  	    	if(results.length==0)
+		  	    		output_recommendations(res,results,"Sorry, we donot have recommendations for you now, please be more active!");
+		  	    	else
+		  	    		output_recommendations(res,results,"Go through these recommendations and see if you like!");
 		  	    	}
-		  	    	else{
-		  	    		var start=getRandomInt(0,(results.length-5));
-		  	    		query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Photo.photoID=Tags.photoID AND Tags.tag IN (SELECT " +
-		    			"tags.tag FROM Rating, Tags WHERE Rating.photoID=Tags.photoID AND Rating.userID='"+userID+
-		    			"' AND ROWNUM<=3 ORDER BY Rating.score DESC) AND ROWNUM>="+start+" AND ROWNUM<="+(start+5);
-		  	    		connection.execute(query, 
-		 		  			   [], 
-		 		  			   function(err, results) {
-		 		  	    if ( err ) {
-		 		  	    	console.log(err);
-		 		  	    } else {
-		 		  	    	connection.close();
-		 		  	    	global.Recommendations=results;
-		 		  	    	
-		 		  	      }
-		 		  	    });
-		  	    	}
-		  	    }
+		  		
 		
 		  	}); // end connection.execute
-	    }
+	    } 
 	  }); // end oracle.connect
-	
-	function loadResults(res,results){
-		res.render(userPage)
-		{
-			result;Result
-		}
 	}
+
+
+
+function output_recommendations(res,results,Message){
+	res.render('userPage',
+			 {results:results
+		      Message: Message
+			 });
+	
+}
+
+exports.userPage = function(req, res){
+	query_db_recommendation(res);
+};
+
 
 
 

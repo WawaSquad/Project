@@ -2,6 +2,8 @@ extends layout
 
 block content
   .container
+    if loggedOut == true 
+       .alert.alert-warning Successfully logged out, thanks for using our website!
     .row.clearfix
         .col-md-12.column
           #carousel-599484.carousel.slide
