@@ -32,6 +32,8 @@ function query_db_recommendation() {
 		  	    	if(results.length<=5){
 		  	    		connection.close();
 		  	    		global.Recommendations=results;
+		  	    		
+		  	    		//loadresults(res,results);
 		  	    	}
 		  	    	else{
 		  	    		var start=getRandomInt(0,(results.length-5));
@@ -46,6 +48,7 @@ function query_db_recommendation() {
 		 		  	    } else {
 		 		  	    	connection.close();
 		 		  	    	global.Recommendations=results;
+		 		  	    	
 		 		  	      }
 		 		  	    });
 		  	    	}
@@ -54,8 +57,13 @@ function query_db_recommendation() {
 		  	}); // end connection.execute
 	    }
 	  }); // end oracle.connect
+	
+	function loadResults(res,results){
+		res.render(userPage)
+		{
+			result;Result
+		}
 	}
-
 
 
 
