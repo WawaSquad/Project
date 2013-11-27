@@ -64,7 +64,7 @@
 	
 	exports.login = function(req, res){
 		query_db(res,req.body.userID,req.body.password);
-	};
+	}
 	
 	
 	function results_fail(res,fail) {
@@ -92,4 +92,3 @@
 		//rec.recommendation();
 	}
 
-;

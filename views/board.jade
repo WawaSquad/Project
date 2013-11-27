@@ -2,6 +2,11 @@ extends layout2
 block content
 
  .container
+    if success == true 
+       .alert.alert-warning Successfully Add your new Board!
+    if fail == true 
+       .alert.alert-warning Failed to add Board, name already exists!
+       
     .row.clearfix
         .col-md-12.column
           .page-header
@@ -26,6 +31,10 @@ block content
             a.list-group-item.active
               span.badge #{results.length}
               | Total Boards
+              
+           form(method='get',action='/addBoard')
+               input(name='NewBoardName',type='text',placeholder='Enter BoardName')
+               input(type='submit',name='submit',value='ADD BOARD!')
               
 
 
