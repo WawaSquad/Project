@@ -8,15 +8,17 @@ block content
               | Registration
               div
                 small Please fill out the form below
-          form.form-horizontal(role='form')
+          if fail == true 
+            .alert.alert-warning  Sorry, The userName  already exists, please try again
+          form.form-horizontal(role='form',action='/registerUser', method ='post')
             .form-group
-              label.col-lg-1.control-label(for='inputUsername') Username
+              label.col-sm-1.control-label(for='inputUsername') Username
               .col-sm-10
-                input#inputEmail3.form-control(type='username')
+                input#inputUsername.form-control(type='text' ,name='userID')
             .form-group
-              label.col-sm-1.control-label(for='inputPassword3') Password
+              label.col-sm-2.control-label(for='inputPassword3') Password
               .col-sm-10
-                input#inputPassword3.form-control(type='password')
+                input#inputPassword3.form-control(type='password', name='password')
             .form-group
               label.col-sm-1.control-label(for='inputFirstName') First Name
               .col-sm-10

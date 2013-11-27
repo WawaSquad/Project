@@ -17,8 +17,8 @@ function query_db(res,searchTags,PageNum) {
 		  	if(PageNum==null||PageNum=="")
 		  		PageNum="1";
 		  	intPageNum=parseInt(PageNum);
-	    	var query="SELECT Photo.photoID, Photo.url FROM Photo,Tags WHERE Tags.tag LIKE '%" + searchTags + 
-  			"%' AND Photo.photoID=Tags.photoID AND rownum>="+6*(intPageNum-1)+" AND rownum<="+6*intPageNum+" ORDER BY Photo.photoID ";
+	    	var query="SELECT Object.id, Object.url FROM Object,Tags WHERE Object.type='photo' AND Tags.tag LIKE '%" + searchTags + 
+  			"%' AND Object.id=Tags.id AND Object.source=Tags.source AND rownum>="+6*(intPageNum-1)+" AND rownum<="+6*intPageNum+" ORDER BY Photo.photoID ";
 	    	
 		  	connection.execute(query, 
 		  			   [], 

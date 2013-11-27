@@ -1,7 +1,11 @@
 extends signinLayout
-block content
+block content	
 	.container
-		form.form-signin(action='/userPage',method='post')
+		if fail == true 
+			.alert.alert-warning Try again,Password and Username was incorrrect
+		if success == true
+			.alert.alert-success User Succesfully Registered, Please log in
+		form.form-signin(action='/login',method='post')
 			h2.form-signin-heading Please sign in
 			input.form-control(name='userID',type='text', placeholder='userID', autofocus='autofocus')
 			input.form-control(name='password',type='password', placeholder='Password')

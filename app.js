@@ -13,6 +13,10 @@ var photos = require('./routes/photos');
 var photoSearch = require('./routes/photoSearch');
 var add_rating=require('./routes/add_rating');
 var friendBoard = require('./routes/friendBoard');
+var login = require('./routes/login');
+//var success = require('./routes/success');
+//var fail = require('./routes/fail');
+var registerUser = require('./routes/registerUser');
 //var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
@@ -46,6 +50,10 @@ app.get('/photos', photos.photos);
 app.get('/photoSearch', photoSearch.photoSearch);
 app.get('/add_rating', add_rating.add_rating);
 app.get('/friendBoard', friendBoard.friendBoard);
+app.post('/login', login.login);
+app.post('/registerUser', registerUser.registerUser);
+//app.get('/success',success.success);
+//app.get('/fail', fail.fail);
 //app.get('/users', user.list);
 
 
