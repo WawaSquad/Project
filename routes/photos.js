@@ -16,8 +16,8 @@ function query_db(res,boardName, nextPage) {
 			    	// selecting photos' urls
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
-			    	console.log("executing the query....");			
-				  	connection.execute("select Pho.url, Pho.photoID from photo Pho, pin Pi where Pi.userID ='" + userID + "' and Pi.boardName = '" + boardName + "' and Pi.photoID = Pho.photoID", 
+			    	console.log("executing the query....");
+				  	connection.execute("select O.url, P.id  from Object O, Pin P where P.login ='" + userID + "' and P.board = '" + boardName + "' and P.objectId = O.id", 
 				  			   [], 
 				  			   function(err, results) {
 				  	    if ( err ) {
