@@ -59,9 +59,11 @@ function output_recommendations(res,results,Message){
 	
 }
 
-exports.userPage = function(req, res){
+exports.recommendation = function(req, res){
 	query_db_recommendation(res);
 };
+
+
 
 
 

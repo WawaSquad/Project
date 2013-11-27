@@ -1,9 +1,8 @@
 
 
-//exports.login = function(req, res){
-//	  res.render('login');
-	//};
 
+
+//var rec = require("recommendation");
 
 	var connectData = { 
 	  "hostname": "cis550project.cumzrn1o3hle.us-west-2.rds.amazonaws.com", 
@@ -78,16 +77,11 @@
 		  );
 	}
 
-//var rec = require(recomendaiton);
+    
 	
-	//function output(){
-	//	rec.recomendation();
-	//}
-	
-
 	function output_results(res,userID,password,results) {
 		res.render('userPage',
-			  {
+			 {
 		      userID: "userID found" + userID,
 			  password: "password found" + password,
 			  results: results
@@ -95,6 +89,7 @@
 				}	
 		
 		  );
+		//rec.recommendation();
 	}
 
 ;
