@@ -17,7 +17,7 @@ block content
             a.list-group-item.active(href='#') My Boards
             -for (var inx = 0; inx < results.length; inx++) 
              .list-group-item
-              a(href='/photos'+'?boardName=#{results[inx].BOARDNAME}&nextPage=1') #{results[inx].BOARDNAME}
+              a(href='/photos'+'?boardName=#{results[inx].NAME}&nextPage=1') #{results[inx].NAME}
               
               
               

@@ -31,12 +31,12 @@ block content
                 img(alt='Failed to load', src="#{results[inx].URL}")
                 .caption
                   h3
-                    | Photo ID is : #{results[inx].PHOTOID}
+                    | Photo ID is : #{results[inx].ID}
                   p
                     | Photo URL is : #{results[inx].URL}
                   p
                    
-                 - var currentPhotoIDvalue= results[inx].PHOTOID
+                 - var currentPhotoIDvalue= results[inx].ID
                       .modal-body
                        form(method='get',action='/add_rating')
                           input(name='score',type='text',placeholder='integer value from 0 to 10')
