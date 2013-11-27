@@ -10,8 +10,8 @@ function query_db(res) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-	    	var query = "SELECT boardName, userID FROM Board WHERE " +
-	    	"userID = '"+userID+"'";
+	    	var query = "SELECT name, login FROM Board WHERE " +
+	    	"login = '"+userID+"'";
 		  	
 	    	connection.execute(query, 
 		  			   [], 
