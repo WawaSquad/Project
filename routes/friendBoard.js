@@ -11,8 +11,8 @@ function query_db(res) {
 	    	console.log(err);
 	    } else {
   	
-  			var query = "SELECT b.boardName, b.userID FROM Board b, " +
-  			"Friendship f WHERE '" + userID+ "' = f.userID AND f.friendID = b.userID";
+  			var query = "SELECT b.name, b.login FROM Board b, " +
+  			"Friendship f WHERE '" + userID+ "' = f.login AND f.friendID = b.login";
 	    	
 	    	connection.execute(query, 
 		  			   [], 
@@ -30,7 +30,7 @@ function query_db(res) {
 	}
 
 function output_boards(res, results) {
-	res.render('board',
+	res.render('friendBoard',
 		   {results: results }
 	  );
 }

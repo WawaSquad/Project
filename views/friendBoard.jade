@@ -17,7 +17,7 @@ block content
             a.list-group-item.active(href='#') My Friends' Boards
             -for (var inx = 0; inx < results.length; inx++) 
              .list-group-item
-              a(href='/images') #{results[inx].BOARDNAME}
+              a(href='/images') #{results[inx].NAME}
               
             a.list-group-item.active
               span.badge #{results.length}
