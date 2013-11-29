@@ -8,28 +8,28 @@ var connectData = {
 var oracle =  require("oracle");
 
 
-function query_db_recommendation_method(res) {
+function query_db_recommendation(res) {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
 	    	var subquery1="(SELECT Object.id, object.url FROM Object, Tags "+
-	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source"+
+	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source "+
 	    	"AND Tags.tag IN (SELECT Tags.tag FROM Pin, FriendShip, Tags "+
 	    	"WHERE Pin.login=FriendShip.friendID AND Pin.objectId=Tags.id AND Pin.sourceId= Tags.source "+
 	    	"AND FriendShip.login='"+userID+"'))";
-	    	
+	    	console.log(subquery1);
 	    	var subquery2="(SELECT Object.id, object.url FROM Object, Tags "+
-	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source"+
+	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source "+
 	    	"AND Tags.tag IN (SELECT Interests.interest FROM Users, Interests  "+
 	    	"WHERE Users.login=Interests.login AND Users.login='"+userID+"'))";
-	    	
+	    	console.log(subquery2);
 	    	var subquery3="(SELECT Object.id, object.url FROM Users, Pin, Object  "+
-	    	"WHERE Object.type='photo' AND Users.login=PIn.login"+
+	    	"WHERE Object.type='photo' AND Users.login=Pin.login "+
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"')";
-	    	
-	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" MINUS "+subquery3+") ORDER BY dbms_random.value) WHERE ROWNUM<=10"
-	    	
+	    	console.log(subquery3);
+	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" MINUS "+subquery3+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
+	    	console.log(query);
 	    	connection.execute(query, 
 		  			   [], 
 		  			   function(err, results) {
@@ -37,10 +37,14 @@ function query_db_recommendation_method(res) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close();
-		  	    	if(results.length==0)
-		  	    		output_recommendations(res,results,"Sorry, we donot have recommendations for you now, please be more active!");
-		  	    	else
-		  	    		output_recommendations(res,results,"Go through these recommendations and see if you like!");
+		  	    	if(results.length==0){
+		  	    		var msg="Sorry, we donot have recommendations for you now, please be more active!";
+		  	    		output_recommendations_empty(res,results,msg);
+		  	    	}
+		  	    	else{
+		  	    		var msg="Go through these recommendations and see if you like!";
+		  	    		output_recommendations_existing(res,results,msg);
+		  	    	}
 		  	    	}
 		  		
 		
@@ -51,10 +55,18 @@ function query_db_recommendation_method(res) {
 
 
 
-function output_recommendations(res,results,Message){
-	res.render('userPage',
-			 {results:results
-		      Message: Message
+function output_recommendations_empty(res,results,msg){
+	res.render('recommendation',
+			 {results:results,
+		      msg: msg
+			 });
+	
+}
+
+function output_recommendations_existing(res,results,msg){
+	res.render('recommendation',
+			 {results:results,
+		      msg: msg
 			 });
 	
 }

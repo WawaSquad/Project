@@ -1,0 +1,32 @@
+
+extends layout2
+block content
+    
+    a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') Refresh your results?
+    
+    .container
+      .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              | #{results.Message} 
+
+          .row
+            .col-md-4
+              .thumbnail
+              -for (inx = 0; inx < 5; inx++){
+               -if( inx <= results.length-1 ){
+                img(alt='Failed to load', src="#{results[inx].URL}")
+                .caption
+                  h3
+                    | Photo ID is : #{results[inx].ID}
+                  p
+                    | Photo URL is : #{results[inx].URL}
+                  p
+                    a.btn.btn-primary(href='#') Rate
+                    a.btn(href='#modal-container-196153', role='button', data-toggle='modal') Pin
+               -}
+              -}
+        
+            
+              
