@@ -17,7 +17,10 @@ function query_db(res,boardName, nextPage) {
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
 			    	console.log("executing the query....");
-				  	connection.execute("select O.url, P.objectId  from Object O, Pin P where P.sourceId=O.source and P.login ='" + userID + "' and P.board = '" + boardName + "' and P.objectId = O.id", 
+			    	var query="select Object.url, Object.id  from Object, Pin where Pin.board = '" + boardName +
+		  			"' and Pin.objectId = Object.id and Pin.sourceId=Object.source and Pin.login in (select FriendID from FriendShip where "
+		  			+"FriendShip.login = '"+userID+"')";
+				  	connection.execute(query,
 				  			   [], 
 				  			   function(err, results) {
 				  	    if ( err ) {
@@ -53,7 +56,7 @@ function output_photos(res,nextPage,boardName,results) {
 	  );
 }
 
-exports.photos = function(req, res){
+exports.friendsPhoto = function(req, res){
   query_db(res, req.query.boardName, req.query.nextPage );
   console.log(req.query.boardName + ' hi ' + req.query.nextPage  );
 };
