@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var signin = require('./routes/signin');
+var editUserPage = require('./routes/editUserPage');
 var register = require('./routes/register');
 var userPage = require('./routes/userPage');
 var board = require('./routes/board');
@@ -59,6 +60,8 @@ app.post('/registerUser', registerUser.registerUser);
 app.get('/logout',logout.logout);
 app.get('/addBoard',addBoard.addBoard);
 app.get('/friendsPhoto',friendsPhoto.friendsPhoto);
+app.get('/editUserPage', editUserPage.editUserPage);
+app.post('/editInfo', editUserPage.editInfo);
 //app.get('/recommendation',recommendation.recommendation);
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);

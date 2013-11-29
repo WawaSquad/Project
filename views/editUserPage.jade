@@ -1,0 +1,41 @@
+extends layout2
+
+block content
+  .container
+    .row.clearfix
+        .col-md-12.column
+          h3
+            | Edit Your Info Below
+            |<P>#{userID}</P>
+          form.form-horizontal(role='form' ,action="/editInfo", method ='post')
+            
+            .form-group
+              label.col-sm-2.control-label(for='inputPassword3') Password
+              .col-sm-10
+                password = results[0].PASSWORD+" "
+                input#inputPassword3.form-control(type='text',name='password',value=password)
+            .form-group
+              label.col-sm-2.control-label(for='email') Email
+              .col-sm-10
+                email = results[0].EMAIL+" "              
+                input#email.form-control(type='email',name='email',value=email)
+            .form-group
+              label.col-sm-2.control-label(for='affilitation') Affiliation
+              .col-sm-10
+                affiliation = results[0].AFFILIATION+" "
+              
+                input#affiliation.form-control(type='text',name='affiliation',value=affiliation)                
+            .form-group
+              label.col-sm-2.control-label(for='givenname') GivenName
+              .col-sm-10
+                givenname = results[0].GIVENNAME+" "   
+                input#givenname.form-control(type='text',name='givenname',value=givenname)
+            .form-group
+              label.col-sm-2.control-label(for='surname') Surname
+              .col-sm-10
+                surname = results[0].SURNAME+" "   
+                input#surname.form-control(type='text',name='surname',value=surname)  
+                     
+            .form-group
+              .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Edit Info
