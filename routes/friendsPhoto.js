@@ -17,7 +17,7 @@ function query_db(res,boardName, nextPage) {
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
 			    	console.log("executing the query....");
-			    	var query="select Object.url, Object.id  from Object, Pin where Pin.board = '" + boardName +
+			    	var query="select Object.url, Object.id  from Object, Pin where Object.type='photo' and Pin.board = '" + boardName +
 		  			"' and Pin.objectId = Object.id and Pin.sourceId=Object.source and Pin.login in (select FriendID from FriendShip where "
 		  			+"FriendShip.login = '"+userID+"')";
 				  	connection.execute(query,
