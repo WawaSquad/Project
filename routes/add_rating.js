@@ -7,13 +7,14 @@ var connectData = {
 var oracle =  require("oracle");
 
 function insert_rating(res,photoID_str,sourceID,score_str) {
-	  var photoID=parseInt(photoID_str);
+	  
+	var photoID=parseInt(photoID_str);
 	  var score=parseInt(score_str);
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-	    	var initquery="SELECT * FROM Rating WHERE objectId = "+photoID+" AND sourceId = '"+sourceID+"' ";
+	    	var initquery="SELECT objectId, sourceId FROM Rating WHERE login='"+userID+"' AND +objectId ="+photoID+" AND sourceId = '"+sourceID+"' ";
 	    	console.log(initquery);
 	    	var query;
 	    	connection.execute(initquery, 
@@ -24,7 +25,8 @@ function insert_rating(res,photoID_str,sourceID,score_str) {
 		  	    	
 		  	    } else {
 		  	    	if(results.length==0){
-		  	    	   query="INSERT INTO  Rating VALUES ( "+photoID+", '"+sourceID+"', "+score+")";
+		  	    	   query="INSERT INTO  Rating VALUES ('"+userID+"' , "+photoID+", '"+sourceID+"', "+score+")";
+		  	    	   console.log(query);
 		  		       connection.execute(query, 
 		  			  	 [], 
 		  			     function(err, results) {
@@ -40,7 +42,7 @@ function insert_rating(res,photoID_str,sourceID,score_str) {
 		  	    	}
 		  	    	
 		  	    	else{
-		  	    		query="UPDATE Rating SET score="+ score+" WHERE obejctId = "+photoID+" AND sourceId = '"+sourceID+"' ";
+		  	    		query="UPDATE Rating SET score="+ score+" WHERE login= '"+ userID +"' AND obejctId ="+ photoID +" AND sourceId = '"+sourceID+"' ";
 		  		    	
 		  			  	connection.execute(query, 
 		  			  			   [], 
@@ -64,7 +66,7 @@ function insert_rating(res,photoID_str,sourceID,score_str) {
 	}
 
 exports.add_rating = function(req, res){
-	insert_rating(res,req.query.currentphotoID,req.query.currentSrcID, req.query.score);
+	insert_rating(res,req.query.currentObjID,req.query.currentSrcID, req.query.score);
 };
 
 function output_result(res,msg,photoID,sourceID){

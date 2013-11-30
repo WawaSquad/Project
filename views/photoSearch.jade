@@ -36,12 +36,12 @@ block content
                     | Photo URL is : #{results[inx].URL}
                   p
                    
-                 - var currentPhotoIDvalue= results[inx].ID
+                 - var currentObjIDvalue= results[inx].ID
                  - var currentSrcIDvalue= results[inx].SOURCE
                       .modal-body
                        form(method='get',action='/add_rating')
                           input(name='score',type='text',placeholder='integer value from 0 to 10')
-                          input(type='hidden', name='currentphotoID', value=currentPhotoIDvalue)
+                          input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                           input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                           button.btn.btn-primary(type='submit') Rate it!
                                
