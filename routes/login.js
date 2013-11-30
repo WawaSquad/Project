@@ -4,7 +4,8 @@
 	exports.login = function(req, res){
 		query_db(res,req.body.userID,req.body.password);
 	}
-	
+	var bcrypt = require('bcrypt');
+
 
 //var rec = require("recommendation");
 
@@ -24,8 +25,9 @@
 		    	console.log(err);
 		    } else {
 				
+		
 		    	var query="SELECT Users.login, Users.password FROM Users WHERE Users.login = '" +  userID + 
-	  			"' AND Users.password = '"+ password+"' ";
+	  			"' AND ROWNUM = 1 ";
 			  	connection.execute(query, 
 			  			   [], 
 			  			   function(err, results) {
@@ -40,19 +42,36 @@
 						
 						if (results[0] == null )
 							{
-							console.log("No User Found")
+							console.log("No User Found");
 							fail = true;
-							results_fail(res,fail)
+							results_fail(res,fail);
 							}
 						else
 							{
+							var res1 = res;
+					    	bcrypt.compare(password, results[0].PASSWORD, function(err, res) {
+					    	    
+					    		 if (res == false)
+								 {
+					    
+									console.log("User Creditials Invalid");
+									fail = true;
+									results_fail(res1,fail);
+								 }
+					    		 else
+					    		{	 
 							fail = false;
-							console.log("Login Sucess")
+							console.log("Login Sucess");
 							global.userID = userID;
 
-							show_user_info(res,userID);
+							show_user_info(res1,userID);
+					    		}
+							
 
-
+					    	});
+					    	
+					    	
+					    	
 							}
 						
 						// If result is found, autheneticate,
@@ -89,7 +108,7 @@
 		    } else {
 
 		    	var query="SELECT *  FROM Users WHERE Users.login = '" +  userID + 
-		  			"' ";
+		  			"'  ";
 		    	
 			  	connection.execute(query, 
 			  			   [], 

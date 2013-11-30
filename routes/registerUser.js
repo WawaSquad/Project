@@ -7,7 +7,7 @@
 exports.registerUser = function(req, res){
 	  
 		query_db(res,req.body.userID,req.body.password,req.body.surname,
-				req.body.givenname,req.body.email,req.body.affiliation);
+				req.body.givenname,req.body.email,req.body.affiliation,req.body.interest);
 		//query_db2(res,req.body.userID,req.body.password);
 	};
 	
@@ -18,16 +18,11 @@ exports.registerUser = function(req, res){
 	  "database": "PENNTR" };
 	var oracle =  require("oracle");
 	
-	function checkInfo(res,userID,password)
-	{
-		//CHECK USER ID IS correct form
-		//Check password is correct form
-		//if Not , redirect back to register page with the error message
-		
-	}
+
 	
+	var bcrypt = require('bcrypt');
 	
-	function query_db(res,userID,password,surname,givenname,email,affiliation) {
+	function query_db(res,userID,password,surname,givenname,email,affiliation,interest) {
 		
 		console.log(userID,password,surname,givenname,email,affiliation);
 		userID = userID.replace(/\s/g, '');
@@ -39,7 +34,7 @@ exports.registerUser = function(req, res){
 			    if ( err ) {
 			    	console.log(err);
 			    } else {
-					
+			
 			    	var query="SELECT Users.login FROM Users WHERE Users.login = '" +  userID + 
 		  			"' ";
 				  	connection.execute(query, 
@@ -57,7 +52,7 @@ exports.registerUser = function(req, res){
 							if (results[0] == null )
 								{
 								console.log("No User Found`")
-								 query_db2(res,userID,password,surname,givenname,email,affiliation);
+								 query_db2(res,userID,password,surname,givenname,email,affiliation,interest);
 								}
 							else
 								{
@@ -82,7 +77,7 @@ exports.registerUser = function(req, res){
 		
 	
 
-function query_db2(res,userID,password,surname,givenname,email,affiliation) {
+function query_db2(res,userID,password,surname,givenname,email,affiliation,interest) {
 	console.log("Success: No users found");
 	console.log(userID);
 	console.log(password,surname,givenname,email,affiliation);
@@ -93,9 +88,15 @@ function query_db2(res,userID,password,surname,givenname,email,affiliation) {
 		    else
 		    	{
 				
+		    
+		    	var salt = bcrypt.genSaltSync(10);
+		    	var hash = bcrypt.hashSync(password, salt);
+		 
 		    	var query="INSERT INTO Users (login, password,surname,givenname,email,affiliation) VALUES( '" +  userID + 
-	  			"'  , '"+ password+"', '"+ surname+"', '"+ givenname+"', '"+ email+"', '"+ affiliation+"') ";
-			  	connection.execute(query, 
+	  			"'  , '"+ hash+"', '"+ surname+"', '"+ givenname+"', '"+ email+"', '"+ affiliation+"') ";
+			  	
+		    	console.log(hash);
+		    	connection.execute(query, 
 			  			   [], 
 			  			   function(err) {
 			  	    if ( err ) {
@@ -108,18 +109,22 @@ function query_db2(res,userID,password,surname,givenname,email,affiliation) {
 			  	    console.log("Sucessfully Inserted User");
 			  	    connection.close();
 			  	    success = true;
+			  	   
 			  	    resultSuccess(res,success);
 			  	    }
 			  	}); // end connection.execute
 			    }
 			  }); // end oracle.connect
 			}
+
+
+
+
 function resultSuccess(res,success) {
 	res.render('signin',
 		  {
 	      success: success,
 	      fail: fail =false
-
 			}	
 	
 	  );
@@ -134,3 +139,8 @@ function resultSuccess(res,success) {
 		
 		  );
 	}
+	
+
+	
+	
+	

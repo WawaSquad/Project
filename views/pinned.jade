@@ -1,0 +1,12 @@
+extends layout2
+block content
+  .container
+   form
+   | #{msg} #{boardName}
+   p
+   | Want to see your board with your new pin? 
+   p
+   
+   a(href='/photos'+'?boardName=#{boardName}&nextPage=1')  ~~Click Here~~
+   
+   

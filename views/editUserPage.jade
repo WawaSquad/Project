@@ -8,12 +8,6 @@ block content
             | Edit Your Info Below
             |<P>#{userID}</P>
           form.form-horizontal(role='form' ,action="/editInfo", method ='post')
-            
-            .form-group
-              label.col-sm-2.control-label(for='inputPassword3') Password
-              .col-sm-10
-                password = results[0].PASSWORD+" "
-                input#inputPassword3.form-control(type='text',name='password',value=password)
             .form-group
               label.col-sm-2.control-label(for='email') Email
               .col-sm-10

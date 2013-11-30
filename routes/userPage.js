@@ -28,7 +28,7 @@ function show_user_info(res,userID) {
 	    } else {
 
 	    	var query="SELECT *  FROM Users WHERE Users.login = '" +  userID + 
-	  			"' ";
+	  			"'  ";
 	    	
 		  	connection.execute(query, 
 		  			   [], 
@@ -37,7 +37,7 @@ function show_user_info(res,userID) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close(); // done with the connection
-		  	    	renderUserpage(res,results);
+		  	    	getInterests(res,userID,results);
 		  	    }
 		
 		  	}); // end connection.execute
@@ -45,9 +45,6 @@ function show_user_info(res,userID) {
 	  }); // end oracle.connect
 	}
 
-function renderUserpage(res, results) {
-	res.render('userPage',
-		   {
-			results: results }
-	  );
-}
+
+
+

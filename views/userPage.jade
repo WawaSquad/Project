@@ -20,10 +20,6 @@ block content
                   | Login
                 dd=results[0].LOGIN+" "
                 dt
-                  | Password
-                dd=results[0].PASSWORD+" "
-         
-                dt
                   | Email
                 dd=results[0].EMAIL+" "
                 dt
@@ -40,6 +36,7 @@ block content
                 dt
                   |Sur Name
                 dd=results[0].SURNAME+" "
+    
                 
           a.btn.btn-primary.btn-lg.active(href='/editUserPage', role='button') Edit User Info
           p

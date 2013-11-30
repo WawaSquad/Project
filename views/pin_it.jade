@@ -1,0 +1,34 @@
+extends layout2
+block content
+
+ .container
+    if success == true 
+       .alert.alert-warning [WHAT SHOULD GO HERE?]
+    if fail == true 
+       .alert.alert-warning [WHAT SHOULD GO HERE?]
+       
+    .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              | Boards
+              div
+                small What board would you like to pin #{currentObjID}, #{currentSrcID} to?
+            - if(results.length==0)
+                 p
+                   | You have no boards to display
+            -  else
+          .list-group
+            a.list-group-item.active(href='#') My Boards
+            -for (var inx = 0; inx < results.length; inx++) 
+             .list-group-item
+              a(href='/pinned'+'?boardName=#{results[inx].NAME}&currentObjID=#{currentObjID}&currentSrcID=#{currentSrcID}&nextPage=1') #{results[inx].NAME}
+              
+            a.list-group-item.active
+              span.badge #{results.length}
+              | Total Boards
+              
+               
+              
+
+

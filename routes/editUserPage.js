@@ -64,6 +64,7 @@ function 	editInformation(res,userID,email,givenname,affiliation,surname) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
+	    	
 	    	var query="UPDATE Users SET  email = '"+ email +
 	  			"', affiliation = '" + affiliation + "', surname = '"+ surname +
 	  	
