@@ -1,6 +1,10 @@
 
 
-
+	
+	exports.login = function(req, res){
+		query_db(res,req.body.userID,req.body.password);
+	}
+	
 
 //var rec = require("recommendation");
 
@@ -46,7 +50,7 @@
 							console.log("Login Sucess")
 							global.userID = userID;
 
-							output_results(res,userID,password,results);
+							show_user_info(res,userID);
 
 
 							}
@@ -61,11 +65,7 @@
 		    }
 		  }); // end oracle.connect
 		}
-	
-	exports.login = function(req, res){
-		query_db(res,req.body.userID,req.body.password);
-	}
-	
+
 	
 	function results_fail(res,fail) {
 		res.render('signin',
@@ -78,17 +78,37 @@
 	}
 
     
-	
-	function output_results(res,userID,password,results) {
-		res.render('userPage',
-			 {
-		      userID: "userID found" + userID,
-			  password: "password found" + password,
-			  results: results
-	
-				}	
-		
-		  );
-		//rec.recommendation();
-	}
 
+
+	
+	function show_user_info(res,userID) {
+		var intPageNum;
+		  oracle.connect(connectData, function(err, connection) {
+		    if ( err ) {
+		    	console.log(err);
+		    } else {
+
+		    	var query="SELECT *  FROM Users WHERE Users.login = '" +  userID + 
+		  			"' ";
+		    	
+			  	connection.execute(query, 
+			  			   [], 
+			  			   function(err, results) {
+			  	    if ( err ) {
+			  	    	console.log(err);
+			  	    } else {
+			  	    	connection.close(); // done with the connection
+			  	    	renderUserpage(res,results);
+			  	    }
+			
+			  	}); // end connection.execute
+		    }
+		  }); // end oracle.connect
+		}
+
+	function renderUserpage(res, results) {
+		res.render('userPage',
+			   {
+				results: results }
+		  );
+	}
