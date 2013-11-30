@@ -3,9 +3,9 @@ block content
 
  .container
     if success == true 
-       .alert.alert-warning [WHAT SHOULD GO HERE?]
+       .alert.alert-warning Successfully Add your new Board, now you can pin to it!
     if fail == true 
-       .alert.alert-warning [WHAT SHOULD GO HERE?]
+       .alert.alert-warning Failed to add Board, name already exists!
        
     .row.clearfix
         .col-md-12.column
@@ -14,21 +14,33 @@ block content
               | Boards
               div
                 small What board would you like to pin #{currentObjID}, #{currentSrcID} to?
+            
+            - var currentObjIDvalue= currentObjID
+            - var currentSrcIDvalue= currentSrcID
+            
+             form(method='get',action='/addBoard')
+               input(name='NewBoardName',type='text',placeholder='Enter BoardName')
+               input(type='hidden',name='currentObjID', value=currentObjIDvalue)
+               input(type='hidden',name='currentSrcID', value=currentSrcIDvalue)
+               input(type='submit',name='submit',value='ADD BOARD!') 
+               
             - if(results.length==0)
                  p
-                   | You have no boards to display
+                   | You have no boards to pin to, add one!
             -  else
           .list-group
             a.list-group-item.active(href='#') My Boards
             -for (var inx = 0; inx < results.length; inx++) 
              .list-group-item
               a(href='/pinned'+'?boardName=#{results[inx].NAME}&currentObjID=#{currentObjID}&currentSrcID=#{currentSrcID}&nextPage=1') #{results[inx].NAME}
-              
+             
+               
+                
             a.list-group-item.active
               span.badge #{results.length}
               | Total Boards
               
-               
+            
               
 
 
