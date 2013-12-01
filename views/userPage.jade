@@ -39,21 +39,46 @@ block content
     
                 
           a.btn.btn-primary.btn-lg.active(href='/editUserPage', role='button') Edit User Info
-          p
-          a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') View My Recommendations
-          .media
-            a.pull-left(href='#')
-              img.media-object(src='http://lorempixel.com/64/64/', alt='')
-            .media-body
-              h4.media-heading
-                | Nested media heading
-              | Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-              .media
-                a.pull-left(href='#')
-                  img.media-object(src='http://lorempixel.com/64/64/', alt='')
-                .media-body
-                  h4.media-heading
-                    | Nested media heading
-                  | Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+          
+          .row.clearfix
+        .col-md-12.column
+          .page-header
+            h1
+              | #{msg} 
+
+          .row
+            .col-md-4
+              .thumbnail
+              -for (inx = 0; inx < 3; inx++){
+               -if( inx <= recommendationResults.length-1 ){
+                img(alt='Failed to load', src="#{recommendationResults[inx].URL}")
+                .caption
+                  h3
+                    | Photo ID is : #{recommendationResults[inx].ID}
+                  p
+                    | Photo URL is : #{recommendationResults[inx].URL}
+                  p
+                 
+                 - var currentObjIDvalue= recommendationResults[inx].ID
+                 - var currentSrcIDvalue= recommendationResults[inx].SOURCE
+                      .modal-body
+                       form(method='get',action='/add_rating')
+                          input(name='score',type='text',placeholder='integer value from 0 to 10')
+                          input(type='hidden', name='currentObjID', value=currentObjIDvalue)
+                          input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
+                          button.btn.btn-primary(type='submit') Rate it!
+                               
+                  p
+                   
+                    .modal-body
+                     form(method='get',action='/pin_it')
+                        input(type='hidden', name='currentObjID', value=currentObjIDvalue)
+                        input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
+                        button.btn.btn-primary(type='submit') Pin it!
+               -}
+              -}
+              
+              p
+               a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') View More Recommendations
           
           
