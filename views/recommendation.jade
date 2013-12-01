@@ -23,8 +23,23 @@ block content
                   p
                     | Photo URL is : #{results[inx].URL}
                   p
-                    a.btn.btn-primary(href='#') Rate
-                    a.btn(href='#modal-container-196153', role='button', data-toggle='modal') Pin
+                 
+                 - var currentObjIDvalue= results[inx].ID
+                 - var currentSrcIDvalue= results[inx].SOURCE
+                      .modal-body
+                       form(method='get',action='/add_rating')
+                          input(name='score',type='text',placeholder='integer value from 0 to 10')
+                          input(type='hidden', name='currentObjID', value=currentObjIDvalue)
+                          input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
+                          button.btn.btn-primary(type='submit') Rate it!
+                               
+                  p
+                   
+                    .modal-body
+                     form(method='get',action='/pin_it')
+                        input(type='hidden', name='currentObjID', value=currentObjIDvalue)
+                        input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
+                        button.btn.btn-primary(type='submit') Pin it!
                -}
               -}
         

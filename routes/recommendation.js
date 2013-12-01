@@ -13,32 +13,32 @@ function query_db_recommendation(res) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-	    	var subquery1="(SELECT Object.id, object.url FROM Object, Tags "+
+	    	var subquery1="(SELECT Object.id, object.url, object.source FROM Object, Tags "+
 	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source "+
 	    	"AND Tags.tag IN (SELECT Tags.tag FROM Pin, FriendShip, Tags "+
 	    	"WHERE Pin.login=FriendShip.friendID AND Pin.objectId=Tags.id AND Pin.sourceId= Tags.source "+
 	    	"AND FriendShip.login='"+userID+"'))";
 	    	console.log(subquery1);
 	    	
-	    	var subquery2="(SELECT Object.id, object.url FROM Object, Tags "+
+	    	var subquery2="(SELECT Object.id, object.url, object.source FROM Object, Tags "+
 	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source "+
 	    	"AND Tags.tag IN (SELECT Interests.interest FROM Users, Interests  "+
 	    	"WHERE Users.login=Interests.login AND Users.login='"+userID+"'))";
 	    	console.log(subquery2);
 	    	
-	    	var subquery3="(SELECT Object.id, object.url FROM Object, Tags "+
+	    	var subquery3="(SELECT Object.id, object.url, object.source FROM Object, Tags "+
 	    	"WHERE Object.type='photo' AND Tags.id=Object.id AND Object.source=Tags.source "+
 	    	"AND Tags.tag IN (SELECT Tags.tag FROM Pin, Tags "+
 	    	"WHERE  Pin.objectId=Tags.id AND Pin.sourceId= Tags.source "+
 	    	"AND Pin.login='"+userID+"'))";
 	    	console.log(subquery3);
 	    	
-	    	var subquery4="(SELECT Object.id, object.url FROM Object, (select * from (select "+
+	    	var subquery4="(SELECT Object.id, object.url, object.source FROM Object, (select * from (select "+
 	    	"Rating.objectId, Rating.sourceId from Rating where Rating.login='"+userID+"' "+
 	    	"order by rating DESC) where rownum<=10) R where Object.id=R.objectId and Object.source=R.sourceId)";
 	    	console.log(subquery4);
 	    	
-	    	var subquery5="(SELECT Object.id, object.url FROM Users, Pin, Object  "+
+	    	var subquery5="(SELECT Object.id, object.url, object.source FROM Users, Pin, Object  "+
 	    	"WHERE Object.type='photo' AND Users.login=Pin.login "+
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"')";
 	    	console.log(subquery5);
@@ -73,17 +73,17 @@ function query_db_recommendation2(res) {
 	    if ( err ) {
 	    	console.log(err);
 	    } else {
-	    	var subquery1="(SELECT Object.id, object.url FROM Object, (select * from (select "+
+	    	var subquery1="(SELECT Object.id, object.url, object.source FROM Object, (select * from (select "+
 	    	"Pin.objectId, Pin.sourceId from Pin group by Pin.objectId, Pin.sourceId "+
 	    	"order by count(*) DESC) where rownum<=10) P where Object.id=P.objectId and Object.source=P.sourceId)"
 	    	console.log(subquery1);
 	    	
-	    	var subquery2="(SELECT Object.id, object.url FROM Object, (select * from (select "+
-	    	"Rating.objectId, Rating.sourceId from Rating "+
-	    	"order by rating DESC) where rownum<=10) R where Object.id=R.objectId and Object.source=R.sourceId)"
+	    	var subquery2="(SELECT Object.id, object.url, object.source FROM Object, (select * from (select "+
+	    	"Rating.objectId, Rating.sourceId from Rating GROUP BY Rating.objectId, Rating.sourceId  "+
+	    	"order by avg(rating) DESC) where rownum<=10) R where Object.id=R.objectId and Object.source=R.sourceId AND Object.type='photo')"
 	    	console.log(subquery2);
 	    	
-	    	var subquery3="(SELECT Object.id, object.url FROM Users, Pin, Object  "+
+	    	var subquery3="(SELECT Object.id, object.url, object.source FROM Users, Pin, Object  "+
 	    	"WHERE Object.type='photo' AND Users.login=Pin.login "+
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"')";
 	    	console.log(subquery3);
