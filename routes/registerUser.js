@@ -7,7 +7,7 @@
 exports.registerUser = function(req, res){
 	  
 		query_db(res,req.body.userID,req.body.password,req.body.surname,
-				req.body.givenname,req.body.email,req.body.affiliation,req.body.interest);
+				req.body.givenname,req.body.email,req.body.affiliation);
 		//query_db2(res,req.body.userID,req.body.password);
 	};
 	
@@ -22,7 +22,7 @@ exports.registerUser = function(req, res){
 	
 	var bcrypt = require('bcrypt');
 	
-	function query_db(res,userID,password,surname,givenname,email,affiliation,interest) {
+	function query_db(res,userID,password,surname,givenname,email,affiliation) {
 		
 		console.log(userID,password,surname,givenname,email,affiliation);
 		userID = userID.replace(/\s/g, '');
@@ -52,7 +52,7 @@ exports.registerUser = function(req, res){
 							if (results[0] == null )
 								{
 								console.log("No User Found`")
-								 query_db2(res,userID,password,surname,givenname,email,affiliation,interest);
+								 query_db2(res,userID,password,surname,givenname,email,affiliation);
 								}
 							else
 								{
@@ -77,7 +77,7 @@ exports.registerUser = function(req, res){
 		
 	
 
-function query_db2(res,userID,password,surname,givenname,email,affiliation,interest) {
+function query_db2(res,userID,password,surname,givenname,email,affiliation) {
 	console.log("Success: No users found");
 	console.log(userID);
 	console.log(password,surname,givenname,email,affiliation);

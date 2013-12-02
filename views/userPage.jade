@@ -14,7 +14,10 @@ block content
           .row.clearfix
             .col-md-4.column
               img.img-circle(alt='Failed to Load', src='http://lorempixel.com/140/140/',align='center')
-            .col-md-6.column
+            
+            .col-md-4.column
+              h3 
+                 | Your User Information:
               dl
                 dt
                   | Login
@@ -36,9 +39,16 @@ block content
                 dt
                   |Sur Name
                 dd=results[0].SURNAME+" "
-    
+            .col-md-4.column
+              h3 
+                 | Your Interest: 
+              ol 
+              -for (var inx = 0; inx < interest.length; inx++)
+                 li=interest[inx].INTEREST+" "
+              a.btn.btn-primary.btn-sm.active(href='/interest', role='button') Edit Interest
                 
-          a.btn.btn-primary.btn-lg.active(href='/editUserPage', role='button') Edit User Info
+                
+          a.btn.btn-primary.btn-sm.active(href='/editUserPage', role='button') Edit User Info
           
           .row.clearfix
         .col-md-12.column
