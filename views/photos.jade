@@ -23,9 +23,10 @@ block content
               | Photos of a board you selected : #{boardName}
             h3
               | We display #{n_photos_p_page} photos per page currently.
+          
           .row
-            .col-md-4
-              .thumbnail
+             .col-md-1
+             .col-md-8
               -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
                -if( inx <= results.length-1 ){
                 img(alt='Failed to load', src="#{results[inx].URL}")
@@ -52,8 +53,11 @@ block content
                          input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                          input(type='hidden', name='cur_board', value=currentBoardName)
                          input(type='hidden', name='curr_page', value=current_page)
-                         button.btn.btn-primary(type='button', onclick="JavaScript:this.form.action='/removePhoto';this.form.submit()") Remove it!
                          button.btn.btn-primary(type='submit') Pin it!
+                         p
+                         button.btn.btn-primary(type='button', onclick="JavaScript:this.form.action='/removePhoto';this.form.submit()") Remove it!
+                        
+                         
                            
                -}
               -}

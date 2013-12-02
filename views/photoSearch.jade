@@ -19,14 +19,11 @@ block content
               | Sorry, we cannot find photos mathing your given tag "#{searchTags}" for Page#{PageNum}
           
           .row
-            .col-md-4
-               .thumbnail
-             
-              #modal-container-196153.modal.fade(method='get', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-                      .modal-dialog
-                         .modal-content
-                           
+            .col-md-1
+            .col-md-8
+                         
             -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
+               div.wawa
                -if( inx <= results.length-1 ){
                 img(alt='Failed to load', src="#{results[inx].URL}")
                 .caption
@@ -53,23 +50,9 @@ block content
                         input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                         button.btn.btn-primary(type='submit') Pin it!
         
-                    #modal-container-196153.modal.fade(role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-                      .modal-dialog
-                         .modal-content
-                            .modal-header
-                                 button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                                 h4#myModalLabel.modal-title
-                                   | Modal title
-                            .modal-body
-                               p Board1
-                               p Board2
-                               p Board2
-                            .modal-footer
-                               button.btn.btn-default(type='button', data-dismiss='modal') Close
-                               button.btn.btn-primary(type='button') Pin It
                     -}
               -} 
-              
+              .row
               
          -if (current_page > 1)
             - n_prev = parseInt(current_page) - 1;              

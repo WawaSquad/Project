@@ -2,7 +2,6 @@
 extends layout2
 block content
     
-    a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') Refresh your results?
     
     .container
       .row.clearfix
@@ -10,13 +9,14 @@ block content
           .page-header
             h1
               | #{msg} 
-
+        
           .row
-            .col-md-4
-              .thumbnail
-              -for (inx = 0; inx < 6; inx++){
+            .col-md-1
+            .col-md-8
+             -for (inx = 0; inx < 6; inx++){  
+              div.wawa    
                -if( inx <= results.length-1 ){
-                img(alt='Failed to load', src="#{results[inx].URL}")
+                img(alt='Failed to load', src="#{results[inx].URL}", width='300px')
                 .caption
                   h3
                     | Photo ID is : #{results[inx].ID}
@@ -42,6 +42,8 @@ block content
                         button.btn.btn-primary(type='submit') Pin it!
                -}
               -}
-        
+              .row
+       a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') Refresh your results?
+           
             
               

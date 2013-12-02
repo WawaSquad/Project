@@ -12,10 +12,17 @@ block content
               div
                 small Some information about the user
           .row.clearfix
-            .col-md-4.column
+            .col-md-2.column
               img.img-circle(alt='Failed to Load', src='http://lorempixel.com/140/140/',align='center')
-            
-            .col-md-4.column
+              br
+              br
+              br
+              a.btn.btn-primary.btn-sm.active(href='/editUserPage', role='button') Edit User Info
+              |<p></p>
+              a.btn.btn-primary.btn-sm.active(href='/interest', role='button') Edit Interest
+
+            .col-md-4.wawa
+
               h3 
                  | Your User Information:
               dl
@@ -39,16 +46,18 @@ block content
                 dt
                   |Sur Name
                 dd=results[0].SURNAME+" "
-            .col-md-4.column
+                
+            .col-md-1
+            .col-md-4.wawa
               h3 
                  | Your Interest: 
               ol 
               -for (var inx = 0; inx < interest.length; inx++)
-                 li=interest[inx].INTEREST+" "
-              a.btn.btn-primary.btn-sm.active(href='/interest', role='button') Edit Interest
+                -if (interest.length <=10)
                 
+                  li=interest[inx].INTEREST+" "
                 
-          a.btn.btn-primary.btn-sm.active(href='/editUserPage', role='button') Edit User Info
+       
           
           .row.clearfix
         .col-md-12.column
@@ -57,11 +66,12 @@ block content
               | #{msg} 
 
           .row
-            .col-md-4
-              .thumbnail
+            .col-md-1
+            .col-md-6.wawa
               -for (inx = 0; inx < 3; inx++){
+       
                -if( inx <= recommendationResults.length-1 ){
-                img(alt='Failed to load', src="#{recommendationResults[inx].URL}")
+                img(alt='Failed to load', src="#{recommendationResults[inx].URL}", width='400px')
                 .caption
                   h3
                     | Photo ID is : #{recommendationResults[inx].ID}
@@ -90,5 +100,5 @@ block content
               
               p
                a.btn.btn-primary.btn-lg.active(href='/recommendation',role='button') View More Recommendations
-          
+ 
           

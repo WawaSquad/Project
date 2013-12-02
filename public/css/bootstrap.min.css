@@ -7,6 +7,13 @@
  */
 
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
+
+/*
+Added by Gary:
+*/
+.wawa{background-color: 	#F0F0F0 ;border-color: #585858; box-shadow: 2px 2px 2px rgba(0,0,0,0.5);border-width:1px;}
+.wawa2{background-color: 	#F0F0F0 ;padding-bottom: 1em;box-shadow: 2px 2px 2px rgba(0,0,0,0.5);border-width:1px;}
+
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary
 	{
 	display: block
