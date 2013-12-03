@@ -47,6 +47,7 @@ function output_photos(res,nextPage,boardName,results) {
 		   {
 		    nextPage : nextPage,
 		    boardName : boardName,
+		    canPin : true,
 			//n_photos_p_page : n_photos_p_page,
 			//n_pages : n_pages,
 			results: results }
