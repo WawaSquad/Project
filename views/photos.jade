@@ -62,6 +62,13 @@ block content
                -}
               -}
         
+          -if (canPin) {
+             .modal-body
+               form(method='get',action='/add_new_photo')
+                 input(name='url',type='text',placeholder='url of photo you want to pin')
+                 input(type='hidden', name='currentBoard', value=boardName)
+                 button.btn.btn-primary(type='submit') Pin New Photo!   
+          -} 
            
          -if (current_page > 1)
             - n_prev = parseInt(current_page) - 1;              
