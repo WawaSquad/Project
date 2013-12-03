@@ -16,7 +16,9 @@ function query_db(res,boardName, nextPage) {
 			    	// selecting photos' urls
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
+			    	//
 			    	console.log("executing the query....");
+			    	
 				  	connection.execute("select O.url, P.objectId, P.sourceId  from Object O, Pin P where O.type='photo' and P.sourceId=O.source and P.login ='" + userID + "' and P.board = '" + boardName + "' and P.objectId = O.id", 
 				  			   [], 
 				  			   function(err, results) {
@@ -30,7 +32,7 @@ function query_db(res,boardName, nextPage) {
 				  	    	console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
 				  	    	console.log(results.length);
 				  	    	
-				  	    	console.log(results);
+				  	    	console.log(results);				  	    
 				  	    	output_photos(res,nextPage,boardName,results);
 				  	    }
 				
