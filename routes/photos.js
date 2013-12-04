@@ -17,17 +17,14 @@ function query_db(res,boardName, nextPage) {
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
 			    	//
-			    	console.log("executing the query....");
+			    	console.log("fetching the photos....");
 			    	
-				  	connection.execute("select O.url, P.objectId, P.sourceId  from Object O, Pin P where O.type='photo' and P.sourceId=O.source and P.login ='" + userID + "' and P.board = '" + boardName + "' and P.objectId = O.id", 
+				  	connection.execute("select O.url, P.objectId, P.sourceid, listagg(T.tag,', ') within group(order by P.objectId) TAGS  from Object O, Pin P, tags T where O.type='photo' and P.sourceId=O.source and P.login ='" + userID +"' and P.board = '" + boardName + "' and P.objectId = O.id and T.source = P.sourceid and T.id = P.objectid group by (O.url,P.objectid,P.sourceid)", 
 				  			   [], 
 				  			   function(err, results) {
 				  	    if ( err ) {
 				  	    	console.log(err);
-				  	    } else {
-				  	    
-				  	    	
-				  	    	
+				  	    } else {			  	    	
 				  	    	connection.close(); // done with the connection
 				  	    	console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
 				  	    	console.log(results.length);
@@ -37,6 +34,7 @@ function query_db(res,boardName, nextPage) {
 				  	    }
 				
 				  	}); // end connection.execute
+				  	
 			    }
 			  }); // end oracle.connect
 		 
