@@ -26,7 +26,7 @@ function insert_pin(res,objID_str, srcID_str, boardName_str) {
 		  			  	    	console.log(srcID_str);
 		  			  	    	output_result(res,"You probably already haved this pinned on this board...failed to pin on ", boardName);
 		  			  	    } else {
-		  			  	    	check_pinning_time(objID, srcID);
+		  			  	    	check_isCached(objID,srcID);
 		  			  	    	output_result(res,"Successfully added pin to ", boardName);
 		  			  	    	connection.close(); // done with the connection
 		  	    }
@@ -45,6 +45,37 @@ function output_result(res,msg,boardName){
 			{msg: msg,
 		    boardName: boardName});
 }
+
+function check_isCached(objID,srcID){
+	oracle.connect(connectData, function(err, connection) {
+	    if ( err ) {
+	    	console.log(err);f
+	    } else {
+	    	query="SELECT isCached IS from Object where id="+objID+" and source='"+ 
+	    		srcID+"'";
+		  		connection.execute(query, 
+		  			 [], 
+		  			 function(err, results) {
+		  			 if ( err ) {
+		  			  	    	console.log(err);
+		  			  	    	console.log("error executing:"+query);
+		  			  	    	console.log(objID);
+		  			  	    	console.log(srcID);
+		  			  	    } else {
+		  			  	    	connection.close(); // done with the connection
+		  			  	    	var isCached= results[0].IS;
+		  			  	    	console.log("Cached or not?: "+isCached);
+		  			  	    	if(isCached=='F'){
+		  			  	    	check_pinning_time(objID, srcID);
+		  			  	    		
+		  			  	    	}
+		  	    }
+				
+	  	}); // end connection.execute
+    }
+  }); // end oracle.connect
+}
+
 
 function check_pinning_time(objID, srcID){
 	
@@ -67,7 +98,7 @@ function check_pinning_time(objID, srcID){
 		  			  	    	var num= results[0].NUM;
 		  			  	    	console.log("number pinned before: "+num);
 		  			  	    	if(num>=4){
-		  			  	    		indicateCache(objID, srcID)
+		  			  	    		indicateCache(objID, srcID);
 		  			  	    		
 		  			  	    	}
 		  	    }
