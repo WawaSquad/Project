@@ -4,10 +4,12 @@ var MongoDb = require("mongodb"),
 var GridStore = MongoDb.GridStore;
 var assert = require('assert');
 
-exports.storemongo = function (req,res) {
-	var objectID = req.query.objectID;
-	var sourceID = req.query.sourceID;
-    var imageURL = req.query.url;
+module.exports.storemongo = function (objectID,sourceID, imageURL) {
+	//var objectID = req.query.objectID;
+	//var sourceID = req.query.sourceID;
+   // var imageURL = req.query.url;
+
+	
 	var imageType = imageURL.charAt(imageURL.length-3) + imageURL.charAt(imageURL.length-2) +imageURL.charAt(imageURL.length-1);
 	
 	var imageName = objectID + sourceID + imageType;
@@ -16,13 +18,7 @@ exports.storemongo = function (req,res) {
     console.log("imageType: " + imageType );
     console.log("imageName: " + imageName );
     
-	loadBase64Image(imageURL, function (image, prefix) 
-			{
-	
-		fs.writeFile(imageName +'.'+ imageType, image, 'base64', function(err){
-            if (err) throw err;
-            console.log('File saved.')
-        });
+	loadBase64Image(imageURL, function (image, prefix) {});
 			
 		
 		saveImageGrid(imageName, image, db);
@@ -32,7 +28,7 @@ exports.storemongo = function (req,res) {
 	}); // end of loadBase64		 
     
 	// render a new page
-	res.render('mongoreq');
+	//res.render('mongoreq');
 			   
 };
 

@@ -19,7 +19,7 @@ function query_db(res,boardName, nextPage) {
 			    	//
 			    	console.log("fetching the photos....");
 			    	
-				  	connection.execute("select O.url, P.objectId, P.sourceid, listagg(T.tag,', ') within group(order by P.objectId) TAGS  from Object O, Pin P, tags T where O.type='photo' and P.sourceId=O.source and P.login ='" + userID +"' and P.board = '" + boardName + "' and P.objectId = O.id and T.source = P.sourceid and T.id = P.objectid group by (O.url,P.objectid,P.sourceid)", 
+				  	connection.execute("select O.url, P.objectId, P.sourceid, listagg(T.tag,', ') within group(order by P.objectId) TAGS, O.iscached from Object O, Pin P, tags T where O.type='photo' and P.sourceId=O.source and P.login ='" + userID +"' and P.board = '" + boardName + "' and P.objectId = O.id and T.source = P.sourceid and T.id = P.objectid group by (O.url,P.objectid,P.sourceid,O.iscached)", 
 				  			   [], 
 				  			   function(err, results) {
 				  	    if ( err ) {
@@ -55,7 +55,6 @@ function output_photos(res,nextPage,boardName,results) {
 }
 
 exports.photos = function(req, res){
-  query_db(res, req.query.boardName, req.query.nextPage );
-  console.log(req.query.boardName + ' hi ' + req.query.nextPage  );
+  query_db(res, req.query.boardName, req.query.nextPage );  
 };
 

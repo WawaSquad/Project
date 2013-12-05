@@ -6,6 +6,7 @@ block content
     -  var page_section = 0;
     -  var n_photos_p_page = 5;
     -  var n_pages = Math.ceil(results.length/n_photos_p_page);
+    -  var imageName={};
      
     if deleted == true 
        .alert.alert-warning Successfully removed chosen photo with ID 
@@ -20,7 +21,7 @@ block content
             h1
               | #{results.length} Photos, #{n_pages} page(s), you are on #{current_page}page.
             h3
-              | Photos of a board you selected : #{boardName}
+              | Photos of a board you selected : #{boardName}           
             h3
               | We display #{n_photos_p_page} photos per page currently.
           
@@ -29,12 +30,23 @@ block content
              .col-md-8
               -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
                -if( inx <= results.length-1 ){
-                img(alt='Failed to load', src="#{results[inx].URL}")
-                .caption
+                 -if (results[inx].ISCACHED == 'T'){
+                   - imageName = results[inx].OBJECTID + results[inx].SOURCEID + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   .caption
+                  h3
+                    | Tags : #{results[inx].TAGS}
+                  p
+                    | GridFS Item : #{imageName}
+                 -}
+                 -else{
+                   img(alt='Failed to load', src="#{results[inx].URL}")
+                   .caption
                   h3
                     | Tags : #{results[inx].TAGS}
                   p
                     | Photo URL is : #{results[inx].URL}
+                 -}                
                   p
                  - var currentObjIDvalue= results[inx].OBJECTID
                  - var currentSrcIDvalue= results[inx].SOURCEID
@@ -42,7 +54,7 @@ block content
                   p
                       .modal-body
                        form(method='get',action='/add_rating')
-                          input(name='score',type='text',placeholder='integer value from 0 to 10')
+                          input(name='score',type='text',placeholder='integer value from 0 to 5')
                           input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                           input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                           button.btn.btn-primary(type='submit') Rate it!

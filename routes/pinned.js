@@ -151,9 +151,10 @@ function query_url(objID, srcID){
 		  			  	    	var url=results[0].URL;
 		  			  	    		//insert into mongo 
 		  			  	    	console.log("URL is: "+url);
-		  			  	    	
+		  			  	    	var mongoSearch = require('./mongoQuery');
+		  			  	     mongoSearch.storemongo(objID,srcID, url);
 		  			  	    	//store to mongo below
-		  		    	
+		  		    	    
 		  	    }
 				
 	  	}); // end connection.execute
