@@ -16,8 +16,8 @@ var add_rating=require('./routes/add_rating');
 var friendBoard = require('./routes/friendBoard');
 var login = require('./routes/login');
 var interest = require('./routes/editInterest');
-//var success = require('./routes/success');
-//var fail = require('./routes/fail');
+var add_empty_board = require('./routes/add_empty_board');
+
 var registerUser = require('./routes/registerUser');
 var logout = require('./routes/logout');
 var addBoard = require('./routes/addBoard');
@@ -74,9 +74,76 @@ app.get('/interest', interest.interest );
 app.post('/editInterest', interest.editInfo );
 app.get('/removePhoto', removePhoto.remove_photos);
 app.get('/add_new_photo', add_new_photo.add_new_photo);
+app.get('/add_empty_board', add_empty_board.add_empty_board);
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);
 //app.get('/users', user.list);
+
+
+
+/*-------------for MongoDB------------------*/
+var MongoDb = require("mongodb"),
+db = new MongoDb.Db("test", new MongoDb.Server("localhost", 27017, {auto_reconnect: true}, {}),{fsync:false}),
+fs = require("fs");
+var GridStore = MongoDb.GridStore;
+var mongo= require('./routes/mongo');
+var mongoQuery= require('./routes/mongoQuery');
+var mongoQuery2= require('./routes/mongoQuery2');
+app.get('/mongo', mongo.mongo);
+app.get('/storemongo',mongoQuery.storemongo);
+app.get('/searchmongo',mongoQuery2.searchmongo);
+app.get('/mongoimages/:imgtag', function(req, res) {
+	// retrieve image corresponding imgtag
+	console.log(req.params.imgtag);
+	
+	var imageName = req.params.imgtag;
+	var imageType = imageName.charAt(imageName.length-3) + imageName.charAt(imageName.length-2) +imageName.charAt(imageName.length-1);
+	console.log(imageType);
+	loadImageGrid(imageName, imageType, res);	
+}
+	);
+
+
+function loadImageGrid (imageName,imageType, res){
+
+	 db.open(function(err, db) {
+	 	if(err) throw err;
+	 	console.log('Opening db to retreive an image');
+	 		 // Define the file we wish to read
+	 	    var gs2 = new GridStore(db, imageName, "r");
+	 	    // Open the file		            
+	 	    gs2.open(function(err, gs2) {
+	 	    	if(err) throw err;
+	         	 console.log('Opening GS..');
+	 	      // Set the pointer of the read head to the start of the gridstored file
+	 	      gs2.seek(0, function() {
+	 	    	  if(err) throw err;
+	 	        	 console.log('Pointing the head of the image to read..');
+	 	        // Read the entire file
+	 	    	 gs2.read(function(err, imageData) {		               
+	 	    		 if(err) throw err;
+	 	        	 console.log('Reading the image..');
+	 	        	 gs2.close(function(err, gs2) {
+	 	        		 if(err) throw err;
+	 		        	 console.log('Done reading. Closing GS..');	 	          
+	 	          			db.close();
+	 	          			console.log('Closing the db..');
+	 	          			
+	 	          			console.log('writing the image..');
+	 	          			
+	 	          			res.writeHead('200', {'Content-Type': 'image/' + imageType });	          		    
+	 	          		    res.end(new Buffer(imageData).toString(),'base64');	 	          		   
+	 	          		   // res.end(data,'binary');
+	 	          }); // end of gs2.close
+	 	        }); // end of gs2. read
+	 	      }); // end of gs2.seek
+	 	    });  // end of gs2.open 
+	 }); // end of db.open
+	 	
+	 }	 
+	
+/*------------------------------*/
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

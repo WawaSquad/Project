@@ -1,0 +1,13 @@
+!!! 5
+html
+  head
+  body
+    form(action='/searchmongo', method='get')
+      input(type='text', name='imageName',placeholder='imageName')
+      input(type='submit', value='search')
+    form(action='/storemongo', method='get')
+      input(type='text', name='objectID',placeholder='objectID')
+      input(type='text', name='sourceID',placeholder='sourceID')
+      input(type='text', name='url',placeholder='url')
+      input(type='submit', value='store')
+
