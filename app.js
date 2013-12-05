@@ -78,6 +78,7 @@ app.post('/editInterest', interest.editInfo );
 app.get('/removePhoto', removePhoto.remove_photos);
 app.get('/add_new_photo', add_new_photo.add_new_photo);
 app.get('/add_empty_board', add_empty_board.add_empty_board);
+
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);
 //app.get('/users', user.list);
@@ -135,7 +136,7 @@ function loadImageGrid (imageName,imageType, res){
 	 	          			//db.close();
 	 	          			console.log('Closing the db..');
 	 	          			
-	 	          			console.log('writing the image..');
+	 	          			console.log('Load the image done..');
 	 	          			
 	 	          			res.writeHead('200', {'Content-Type': 'image/' + imageType });	          		    
 	 	          		    res.end(new Buffer(imageData).toString(),'base64');	 	          		   
