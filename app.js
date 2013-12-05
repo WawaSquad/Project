@@ -88,6 +88,9 @@ app.get('/add_empty_board', add_empty_board.add_empty_board);
 var MongoDb = require("mongodb"),
 db = new MongoDb.Db("test", new MongoDb.Server("localhost", 27017, {auto_reconnect: true}, {}),{fsync:false}),
 fs = require("fs");
+db.open(function(err, db) { }); // end of db.open
+console.log('opening db..');
+
 var GridStore = MongoDb.GridStore;
 var mongo= require('./routes/mongo');
 var mongoQuery= require('./routes/mongoQuery');
@@ -109,9 +112,9 @@ app.get('/mongoimages/:imgtag', function(req, res) {
 
 function loadImageGrid (imageName,imageType, res){
 
-	 db.open(function(err, db) {
-	 	if(err) throw err;
-	 	console.log('Opening db to retreive an image');
+	 
+	 	//if(err) throw err;
+	 	//console.log('Opening db to retreive an image');
 	 		 // Define the file we wish to read
 	 	    var gs2 = new GridStore(db, imageName, "r");
 	 	    // Open the file		            
@@ -129,7 +132,7 @@ function loadImageGrid (imageName,imageType, res){
 	 	        	 gs2.close(function(err, gs2) {
 	 	        		 if(err) throw err;
 	 		        	 console.log('Done reading. Closing GS..');	 	          
-	 	          			db.close();
+	 	          			//db.close();
 	 	          			console.log('Closing the db..');
 	 	          			
 	 	          			console.log('writing the image..');
@@ -141,7 +144,7 @@ function loadImageGrid (imageName,imageType, res){
 	 	        }); // end of gs2. read
 	 	      }); // end of gs2.seek
 	 	    });  // end of gs2.open 
-	 }); // end of db.open
+	
 	 	
 	 }	 
 	

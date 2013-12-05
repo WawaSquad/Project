@@ -56,12 +56,11 @@ var loadBase64Image = function (url, callback) {
 };
 
 function saveImageGrid(imageName, imageData, db){
-	
-	
-	  db.open(function(err, db) {
-		  if(err) throw err;
+
+	 db.open(function(err, db) {
+		//  if(err) throw err;
 	    	
-		   	 console.log('Open db to save an image..');	 
+		//   	 console.log('Open db to save an image..');	 
 	
       // Create a new file
       var gs = new GridStore(db, imageName, "w");
@@ -76,7 +75,7 @@ function saveImageGrid(imageName, imageData, db){
         	  if(err) throw err;
          	 console.log('Closing GS..');
         	  
-        	  db.close();
+       	         db.close();
          	console.log('Closing db..');
 
           }); // end of gs.close
@@ -84,4 +83,5 @@ function saveImageGrid(imageName, imageData, db){
       }); // end of gs.open
 }); // end of db.open
 	
+      //db.open(function(err, db) {});
 }

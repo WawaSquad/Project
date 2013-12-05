@@ -1,7 +1,7 @@
 
 block content
+- var inx = 1;
  p
- 
- img(alt='Failed to load', src='/mongoimages/1wawa')
- p
- |  Object ID: 
+-for (inx = 1; inx <= 7; inx++){
+img(alt='Failed to load', src='/mongoimages/#{inx}wawajpg')     
+-}
