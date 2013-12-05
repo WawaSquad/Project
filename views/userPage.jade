@@ -20,8 +20,10 @@ block content
               a.btn.btn-primary.btn-sm.active(href='/editUserPage', role='button') Edit User Info
               |<p></p>
               a.btn.btn-primary.btn-sm.active(href='/interest', role='button') Edit Interest
+              |<p></p>
+              a.btn.btn-primary.btn-sm.active(href='/changePassword', role='button') Change Password
 
-            .col-md-4.wawa
+            .col-md-4
 
               h3 
                  | Your User Information:
@@ -48,7 +50,7 @@ block content
                 dd=results[0].SURNAME+" "
                 
             .col-md-1
-            .col-md-4.wawa
+            .col-md-4
               h3 
                  | Your Interest: 
               ol 
@@ -58,8 +60,10 @@ block content
                   li=interest[inx].INTEREST+" "
                 
        
-          
+         
           .row.clearfix
+       .hr
+       .container.wawaContainer
         .col-md-12.column
           .page-header
             h1
@@ -67,9 +71,9 @@ block content
 
           .row
             .col-md-1
-            .col-md-6.wawa
-              -for (inx = 0; inx < 3; inx++){
-       
+            .col-md-6
+             -for (inx = 0; inx < 3; inx++){
+              div.wawa  
                -if( inx <= recommendationResults.length-1 ){
                 img(alt='Failed to load', src="#{recommendationResults[inx].URL}", width='400px')
                 .caption

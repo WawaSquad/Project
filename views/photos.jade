@@ -66,6 +66,7 @@ block content
              .modal-body
                form(method='get',action='/add_new_photo')
                  input(name='url',type='text',placeholder='url of photo you want to pin')
+                 input(name='tag',type='text',placeholder='tag of photo you want to pin')
                  input(type='hidden', name='currentBoard', value=boardName)
                  button.btn.btn-primary(type='submit') Pin New Photo!   
           -} 

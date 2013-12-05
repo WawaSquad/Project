@@ -7,7 +7,7 @@ var connectData = {
 var oracle =  require("oracle");
 var objID = 0;
 
-function find_objID(res, photo_url, currentBoard) {
+function find_objID(res, photo_url, tag, currentBoard) {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
 	    	console.log(err);
@@ -21,12 +21,13 @@ function find_objID(res, photo_url, currentBoard) {
 		  			  	    	console.log(err);
 		  			  	    	console.log(query);
 		  			  	    	objID = results[0].ID;
-		  			  	    	insert_photo(res, photo_url, currentBoard);
+		  			  	    	insert_photo(res, photo_url, tag, currentBoard);
 		  			  	    } else {
 		  			  	    	console.log(results[0].ID);
-		  			  	    	console.log(results.returnParam);
+		  			  	    	//console.log(results.returnParam);
+		  			  	    	console.log(currentBoard);
 		  			  	        objID = results[0].ID;
-		  			  	    	insert_photo(res, photo_url, currentBoard);
+		  			  	    	insert_photo(res, photo_url, tag, currentBoard);
 		  			  	    	connection.close(); // done with the connection
 		  	    }
 				
@@ -35,7 +36,7 @@ function find_objID(res, photo_url, currentBoard) {
 }); // end oracle.connect
 }
 
-function insert_photo(res, photo_url, currentBoard) {
+function insert_photo(res, photo_url, tag, currentBoard) {
 		var objID_int = parseInt(objID);
 		objID_int = objID_int + 1;
 	  oracle.connect(connectData, function(err, connection) {
@@ -49,9 +50,12 @@ function insert_photo(res, photo_url, currentBoard) {
 		  			 if ( err ) {
 		  			  	    	console.log(err);
 		  			  	    	console.log(query);
-		  			  	    	insert_pin(res, currentBoard);
+		  			  	    	//insert_pin(res, currentBoard);
+		  			  	    	insert_tag(res, objID_int, tag, currentBoard);
 		  			  	    } else {
-		  			  	    	insert_pin(res, currentBoard);
+		  			  	    	//insert_pin(res, currentBoard);
+		  			  	    	console.log(currentBoard);
+		  			  	    	insert_tag(res, objID_int, tag, currentBoard);
 		  			  	    	connection.close(); // done with the connection
 		  	    }
 				
@@ -59,6 +63,33 @@ function insert_photo(res, photo_url, currentBoard) {
     }
   }); // end oracle.connect
 }
+
+function insert_tag(res, objID, tag, currentBoard) {
+	  var srcID = 'wawa';
+	  oracle.connect(connectData, function(err, connection) {
+	    if ( err ) {
+	    	console.log(err);
+	    } else {
+	    	query="INSERT INTO Tags VALUES ("
+	    		+objID+", '"+srcID+"', '"+tag+"')";
+		  		connection.execute(query, 
+		  			 [], 
+		  			 function(err, results) {
+		  			 if ( err ) {
+		  			  	    	console.log(err);
+		  			  	    	console.log(query);
+		  			  	        insert_pin(res, currentBoard);
+		  			  	    } else {
+		  			  	    	console.log(currentBoard);
+		  			  	        insert_pin(res, currentBoard);
+		  			  	    	connection.close(); // done with the connection
+		  	    }
+				
+	  	}); // end connection.execute
+}
+}); // end oracle.connect
+}
+
 
 function insert_pin(res, currentBoard) {
 	  var srcID = 'wawa';
@@ -88,7 +119,7 @@ function insert_pin(res, currentBoard) {
 }
 
 exports.add_new_photo = function(req, res){
-	find_objID(res, req.query.url, req.query.currentBoard);
+	find_objID(res, req.query.url, req.query.tag, req.query.currentBoard);
 };
 
 function output_result(res,msg,currentBoard){

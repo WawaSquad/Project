@@ -27,7 +27,8 @@ var pin_it=require('./routes/pin_it');
 var pinned=require('./routes/pinned');
 var removePhoto= require('./routes/removePhoto');
 var add_new_photo=require('./routes/add_new_photo');
-//var user = require('./routes/user');
+var changePass = require('./routes/changePassword');
+
 var http = require('http');
 var path = require('path');
 var app = express();
@@ -44,6 +45,8 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
+app.post('/editPassword', changePass.editPassword);
+app.get('/changePassword', changePass.changePassword);
 
 //development only
 if ('development' == app.get('env')) {

@@ -7,7 +7,7 @@ block content
     -  var n_photos_p_page = 5;
     -  var n_pages = Math.ceil(results.length/n_photos_p_page);
     
-    .container
+    .container.wawaContainer
         
       .row.clearfix
         .col-md-12.column
@@ -18,14 +18,16 @@ block content
             - else
               | Sorry, we cannot find photos mathing your given tag "#{searchTags}" for Page#{PageNum}
           
-          .row
-            .col-md-1
-            .col-md-8
-                         
+                  
+              #modal-container-196153.modal.fade(method='get', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                      .modal-dialog
+                         .modal-content
+        .row.clearfix
+        .col-md-4             
             -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
-               div.wawa
+              div.wawa
                -if( inx <= results.length-1 ){
-                img(alt='Failed to load', src="#{results[inx].URL}")
+                img(alt='Failed to load', src="#{results[inx].URL}" ,width='300px')
                 .caption
                   h3
                     | Photo ID is : #{results[inx].ID}
@@ -50,9 +52,23 @@ block content
                         input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                         button.btn.btn-primary(type='submit') Pin it!
         
+                    #modal-container-196153.modal.fade(role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+                      .modal-dialog
+                         .modal-content
+                            .modal-header
+                                 button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                                 h4#myModalLabel.modal-title
+                                   | Modal title
+                            .modal-body
+                               p Board1
+                               p Board2
+                               p Board2
+                            .modal-footer
+                               button.btn.btn-default(type='button', data-dismiss='modal') Close
+                               button.btn.btn-primary(type='button') Pin It
                     -}
               -} 
-              .row
+              
               
          -if (current_page > 1)
             - n_prev = parseInt(current_page) - 1;              
@@ -66,7 +82,7 @@ block content
          
          - page_section = Math.ceil(current_page / page_nation_length);      
            
-          
+       .row.clearfix
          
           ul.pagination
           
