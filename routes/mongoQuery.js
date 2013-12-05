@@ -18,13 +18,7 @@ module.exports.storemongo = function (objectID,sourceID, imageURL) {
     console.log("imageType: " + imageType );
     console.log("imageName: " + imageName );
     
-	loadBase64Image(imageURL, function (image, prefix) 
-			{
-	
-		fs.writeFile(imageName +'.'+ imageType, image, 'base64', function(err){
-            if (err) throw err;
-            console.log('File saved.')
-        });
+	loadBase64Image(imageURL, function (image, prefix) {});
 			
 		
 		saveImageGrid(imageName, image, db);
