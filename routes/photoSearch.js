@@ -18,7 +18,7 @@ function query_db(res,searchTags,PageNum) {
 		  		PageNum="1";
 		  	intPageNum=parseInt(PageNum);
 	    	var query="SELECT Object.id, Object.url, Object.source FROM Object,Tags WHERE Object.type='photo' AND Tags.tag LIKE '%" + searchTags + 
-  			"%' AND Object.id=Tags.id AND Object.source=Tags.source AND rownum>="+5*(intPageNum-1)+" AND rownum<="+5*intPageNum+" ORDER BY Object.id ";
+  			"%' AND Object.id=Tags.id AND Object.source=Tags.source ORDER BY Object.id ";
 	    	
 		  	connection.execute(query, 
 		  			   [], 
