@@ -39,7 +39,7 @@ function show_user_info(res,userID,recommendationResults,msg) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close(); // done with the connection
-		  	    	showInterest(res,results,recommendationResults,msg);
+		  	    	showInterest(res,userID,results,recommendationResults,msg);
 		  	    	
 		  	    }
 		
@@ -49,7 +49,7 @@ function show_user_info(res,userID,recommendationResults,msg) {
 	}
 
 
-function showInterest(res,userInfo,recommendationResults,msg) {
+function showInterest(res,userID,userInfo,recommendationResults,msg) {
 	var intPageNum;
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
@@ -66,7 +66,7 @@ function showInterest(res,userInfo,recommendationResults,msg) {
 		  	    } else {
 		  	    	connection.close(); // done with the connection
 		  	   
-		  	    	renderUserpage(res, userInfo,recommendationResults,msg,results);
+		  	    	renderUserpage(res,userID, userInfo,recommendationResults,msg,results);
 		  	    }
 		
 		  	}); // end connection.execute
@@ -74,9 +74,10 @@ function showInterest(res,userInfo,recommendationResults,msg) {
 	  }); // end oracle.connect
 	}
 
-function renderUserpage(res, results,recommendationResults,msg,interest) {
+function renderUserpage(res, userID,results,recommendationResults,msg,interest) {
 	res.render('userPage',
 		   {
+			userID: userID,
 			results: results,
 			recommendationResults: recommendationResults,
 			msg: msg,

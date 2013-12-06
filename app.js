@@ -29,6 +29,7 @@ var removePhoto= require('./routes/removePhoto');
 var add_new_photo=require('./routes/add_new_photo');
 var changePass = require('./routes/changePassword');
 var editTag= require('./routes/editTag');
+var addFriend= require('./routes/addFriend');
 
 var http = require('http');
 var path = require('path');
@@ -81,6 +82,8 @@ app.get('/add_new_photo', add_new_photo.add_new_photo);
 app.get('/add_empty_board', add_empty_board.add_empty_board);
 app.get('/tag', editTag.tag);
 app.get('/editTag', editTag.editInfo);
+app.get('/friend',addFriend.friend);
+app.get('/addFriend', addFriend.editInfo);
 
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);

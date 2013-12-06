@@ -1,0 +1,23 @@
+extends layout2
+
+block content
+  .container
+    .row.clearfix
+        .col-md-12.column
+          h3
+            | Your Friends
+          if (fail == true)
+             .alert.alert-warning Sorry, We cannot finding correspnonding userID or that friend already exists
+          table
+            - for (var inx = 0; inx < results.length; inx++)
+              tr
+                td=results[inx].FRIENDID+" "
+          form.form-horizontal(role='form' ,action="/addFriend", method ='get')
+            .form-group
+              label.col-sm-2.control-label(for='interest') Add New Friend
+              .col-sm-10             
+                input#interest.form-control(type='text',name='friendID') 
+                     
+            .form-group
+              .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Add Friend

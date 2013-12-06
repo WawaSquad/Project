@@ -27,7 +27,7 @@ var connectData = {
 var oracle =  require("oracle");
 
 
-
+/*
 function loadPage(res, results) {
 	res.render('changePassword',
 		{
@@ -36,7 +36,16 @@ function loadPage(res, results) {
 		}
 	  );
 }
+*/
 
+function loadPage(res, userID) {
+	res.render('changePassword',
+		{
+	error: error = false,
+	changed: changed = false
+		}
+	  );
+}
 
 function loadChange(res, results) {
 	res.render('changePassword',
@@ -49,7 +58,7 @@ function loadChange(res, results) {
 
 var bcrypt = require('bcrypt');
 
-function 	editInformation(res,userID,pass1,pass2) {
+function editInformation(res,userID,pass1,pass2) {
 	
 	
 	if (pass1 == pass2)

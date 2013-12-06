@@ -1,6 +1,6 @@
 
 function removeuserID(res){
-	global.userID=null;
+	global.userID="";
 	renderIndexPage(res,true);
 }
 
