@@ -17,8 +17,8 @@ function query_db(res,searchTags,PageNum) {
 		  	if(PageNum==null||PageNum=="")
 		  		PageNum="1";
 		  	intPageNum=parseInt(PageNum);
-	    	var query="SELECT Object.id, Object.url, Object.source FROM Object,Tags WHERE Object.type='photo' AND Tags.tag LIKE '%" + searchTags + 
-  			"%' AND Object.id=Tags.id AND Object.source=Tags.source ORDER BY Object.id ";
+	    	var query="SELECT Object.id, Object.url, Object.source, listagg(Tags.tag,', ') within group(order by Tags.tag) TAGS, Object.isCached FROM Object,Tags WHERE Object.type='photo' AND Tags.tag LIKE '%" + searchTags + 
+  			"%' AND Object.id=Tags.id AND Object.source=Tags.source GROUP BY (Object.id, Object.url, Object.source, Object.isCached) ";
 	    	
 		  	connection.execute(query, 
 		  			   [], 

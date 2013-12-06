@@ -25,7 +25,7 @@ module.exports.storemongo = function (objectID,sourceID, imageURL) {
 		
 		//loadImageGrid(imageName, db);	
 		
-	}); // end of loadBase64		 
+	//}); // end of loadBase64		 
     
 	// render a new page
 	//res.render('mongoreq');

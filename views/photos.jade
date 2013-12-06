@@ -9,7 +9,7 @@ block content
     -  var imageName={};
      
     if deleted == true 
-       .alert.alert-warning Successfully removed chosen photo with ID 
+       .alert.alert-warning Successfully removed chosen photo!
     if deleted == false 
        .alert.alert-warning Failed to remove chosen photo!
        
@@ -78,7 +78,7 @@ block content
              .modal-body
                form(method='get',action='/add_new_photo')
                  input(name='url',type='text',placeholder='url of photo you want to pin')
-                 input(name='tag',type='text',placeholder='tag of photo you want to pin')
+                 
                  input(type='hidden', name='currentBoard', value=boardName)
                  button.btn.btn-primary(type='submit') Pin New Photo!   
           -} 

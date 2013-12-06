@@ -2,11 +2,12 @@ extends layout2
 block content
   .container
    form
-   | #{msg} #{currentBoard}
+   | #{msg} #{currentBoard} for Object with ID #{objID} from #{srcID}
    p
-   | Want to see your board with your new pin? 
+   | What's next? 
    p
    
-   a(href='/photos'+'?boardName=#{currentBoard}&nextPage=1')  ~~Click Here~~
-   
+   a(href='/photos'+'?boardName=#{currentBoard}&nextPage=1')  ~~Go back to Board~~
+   p
+   a(href='/tag'+'?boardName=#{currentBoard}&objID=#{objID}&srcID=#{srcID}')  ~~Add Tags~~
    

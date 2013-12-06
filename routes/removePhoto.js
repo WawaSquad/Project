@@ -73,6 +73,7 @@ function output_photos(res,nextPage,boardName,results, del_objectID,del_sourceID
 		   {
 		    nextPage : nextPage,
 		    boardName : boardName,
+		    canPin : true,
 		    del_objectID : del_objectID,
 		    del_sourceID: del_sourceID,
 		    deleted: deleted,

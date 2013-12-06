@@ -16,13 +16,29 @@ block content
              -for (inx = 0; inx < 6; inx++){  
               div.wawa    
                -if( inx <= results.length-1 ){
+               
+               -if (results[inx].ISCACHED == 'T'){
+                   - imageName = results[inx].ID + results[inx].SOURCE + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   .caption
+                   h3
+                    | Photo ID is : #{results[inx].ID}
+                   p
+                    | GridFS Item : #{imageName}
+                   p
+                    | Tags : #{results[inx].TAGS}
+                 -}
+                 
+               -else{
                 img(alt='Failed to load', src="#{results[inx].URL}", width='300px')
                 .caption
                   h3
                     | Photo ID is : #{results[inx].ID}
                   p
                     | Photo URL is : #{results[inx].URL}
-                  p
+                  p  
+                    | Tags : #{results[inx].TAGS}
+                -}
                  
                  - var currentObjIDvalue= results[inx].ID
                  - var currentSrcIDvalue= results[inx].SOURCE

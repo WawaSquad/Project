@@ -106,35 +106,7 @@ var connectData = {
 		  }); // end oracle.connect
 		}
 	
-	/*
-	function query_db3(res,success,fail) {
-		  oracle.connect(connectData, function(err, connection) {
-		    if ( err ) {
-		    	console.log(err);
-		    } else {
-		    	var query = "SELECT name, login FROM Board WHERE " +
-		    	"login = '"+userID+"'";
-			  	
-		    	connection.execute(query, 
-			  			   [], 
-			  			   function(err, results) {
-			  	    if ( err ) {
-			  	    	console.log(err);
-			  	    } else {
-			  	    	connection.close(); // done with the connection
-			  	    	console.log(results);
-			  	    	if(fail)
-			  	    		resultFail(res,results,fail);
-			  	    	if(success)
-			  	    		resultSuccess(res,results,success);
-			  	    	
-			  	    }
-			
-			  	}); // end connection.execute
-		    }
-		  }); // end oracle.connect
-		}
-	*/
+	
 	
 	exports.addBoard = function(req, res){
 		query_db(res,req.query.NewBoardName,req.query.currentObjID,req.query.currentSrcID);

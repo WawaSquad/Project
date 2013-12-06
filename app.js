@@ -28,6 +28,7 @@ var pinned=require('./routes/pinned');
 var removePhoto= require('./routes/removePhoto');
 var add_new_photo=require('./routes/add_new_photo');
 var changePass = require('./routes/changePassword');
+var editTag= require('./routes/editTag');
 
 var http = require('http');
 var path = require('path');
@@ -78,6 +79,8 @@ app.post('/editInterest', interest.editInfo );
 app.get('/removePhoto', removePhoto.remove_photos);
 app.get('/add_new_photo', add_new_photo.add_new_photo);
 app.get('/add_empty_board', add_empty_board.add_empty_board);
+app.get('/tag', editTag.tag);
+app.get('/editTag', editTag.editInfo);
 
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);

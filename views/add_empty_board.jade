@@ -14,14 +14,9 @@ block content
               | Boards
               div
                 small My Boards
-                
-            - var currentObjIDvalue= currentObjID
-            - var currentSrcIDvalue= currentSrcID
-            
+         
              form(method='get',action='/add_empty_board')
                input(name='NewBoardName',type='text',placeholder='Enter BoardName')
-               input(type='hidden',name='currentObjID', value=currentObjIDvalue)
-               input(type='hidden',name='currentSrcID', value=currentSrcIDvalue)
                input(type='submit',name='submit',value='ADD BOARD!')  
                
             - if(results.length==0)

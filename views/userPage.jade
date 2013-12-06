@@ -75,13 +75,28 @@ block content
              -for (inx = 0; inx < 3; inx++){
               div.wawa  
                -if( inx <= recommendationResults.length-1 ){
-                img(alt='Failed to load', src="#{recommendationResults[inx].URL}", width='400px')
-                .caption
-                  h3
+                 -if (recommendationResults[inx].ISCACHED == 'T'){
+                   - imageName = recommendationResults[inx].ID + recommendationResults[inx].SOURCE + recommendationResults[inx].URL.charAt(recommendationResults[inx].URL.length-3) + recommendationResults[inx].URL.charAt(recommendationResults[inx].URL.length-2) +recommendationResults[inx].URL.charAt(recommendationResults[inx].URL.length-1);
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   .caption
+                   h3
                     | Photo ID is : #{recommendationResults[inx].ID}
-                  p
+                   p
+                    | GridFS Item : #{imageName}
+                   p
+                    | Tags : #{recommendationResults[inx].TAGS}
+                 -}
+                 -else{
+                   img(alt='Failed to load', src="#{recommendationResults[inx].URL}", width='400px')
+                   .caption
+                   h3
+                    | Photo ID is : #{recommendationResults[inx].ID}
+                   p
                     | Photo URL is : #{recommendationResults[inx].URL}
-                  p
+                   p
+                    | Tags : #{recommendationResults[inx].TAGS}
+                 -}
+                  
                  
                  - var currentObjIDvalue= recommendationResults[inx].ID
                  - var currentSrcIDvalue= recommendationResults[inx].SOURCE

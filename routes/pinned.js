@@ -152,7 +152,7 @@ function query_url(objID, srcID){
 		  			  	    		//insert into mongo 
 		  			  	    	console.log("URL is: "+url);
 		  			  	    	var mongoSearch = require('./mongoQuery');
-		  			  	     mongoSearch.storemongo(objID,srcID, url);
+		  			  	    	mongoSearch.storemongo(objID,srcID, url);
 		  			  	    	//store to mongo below
 		  		    	    
 		  	    }
