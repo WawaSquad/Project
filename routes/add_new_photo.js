@@ -137,6 +137,6 @@ function output_result(res,msg,currentBoard,objID,srcID){
 	res.render('add_new_photo',
 			{msg : msg,
 		     currentBoard : currentBoard,
-		     objID : objID,
-		     srcID : srcID});
+		     objectID : objID,
+		     sourceID : srcID});
 }

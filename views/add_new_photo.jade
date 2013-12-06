@@ -2,12 +2,12 @@ extends layout2
 block content
   .container
    form
-   | #{msg} #{currentBoard} for Object with ID #{objID} from #{srcID}
+   | #{msg} #{currentBoard} for Object with ID #{objectID} from #{sourceID}
    p
    | What's next? 
    p
    
    a(href='/photos'+'?boardName=#{currentBoard}&nextPage=1')  ~~Go back to Board~~
    p
-   a(href='/tag'+'?boardName=#{currentBoard}&objID=#{objID}&srcID=#{srcID}')  ~~Add Tags~~
+   a(href='/tag'+'?boardName=#{currentBoard}&objID=#{objectID}&srcID=#{sourceID}')  ~~Add Tags~~
    
