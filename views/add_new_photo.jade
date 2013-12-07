@@ -9,5 +9,7 @@ block content
    
    a(href='/photos'+'?boardName=#{currentBoard}&nextPage=1')  ~~Go back to Board~~
    p
+   -if(state){
    a(href='/tag'+'?boardName=#{currentBoard}&objID=#{objectID}&srcID=#{sourceID}')  ~~Add Tags~~
+   -}
    

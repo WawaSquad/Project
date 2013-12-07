@@ -7,6 +7,16 @@ var connectData = {
 var oracle =  require("oracle");
 //var objID = 0;
 
+function checkValidURL(res,photo_url,currentBoard){
+	
+	if(photo_url==null || photo_url==""||photo_url.length<=3){
+		output_result(res,"Invalid  URL ! Failed to add pin ", false,currentBoard,"","wawa");
+	}
+	else {
+		find_objID(res,photo_url,currentBoard);
+	}
+		
+}
 function find_objID(res, photo_url, currentBoard) {
 	  oracle.connect(connectData, function(err, connection) {
 	    if ( err ) {
@@ -20,7 +30,7 @@ function find_objID(res, photo_url, currentBoard) {
 		  			 if ( err ) {
 		  			  	    	console.log(err);
 		  			  	    	console.log(query);
-		  			  	    	output_result(res,"Failed to add pin to board ", currentBoard,"","wawa");
+		  			  	    	output_result(res,"Failed to add pin to board ", false,currentBoard,"","wawa");
 		  			  	    	//objID = results[0].ID;
 		  			  	    	//insert_photo(res,objID, photo_url, tag, currentBoard);
 		  			  	    } else {
@@ -56,7 +66,7 @@ function insert_photo(res, objID, photo_url, currentBoard) {
 		  			  	    	console.log(err);
 		  			  	    	console.log(query);
 		  			  	    	//insert_pin(res, currentBoard);
-		  			  	    	output_result(res,"Failed to add pin to board ", currentBoard,objID.toString(),"wawa");
+		  			  	    	output_result(res,"Failed to add pin to board ", false,currentBoard,objID.toString(),"wawa");
 		  			  	    } else {
 		  			  	    	//insert_pin(res, currentBoard);
 		  			  	    	console.log(currentBoard);
@@ -112,9 +122,9 @@ function insert_pin(res, objID, currentBoard) {
 		  			 if ( err ) {
 		  			  	    	console.log(err);
 		  			  	    	console.log(query);
-		  			  	    	output_result(res,"Failed to add pin to board ", currentBoard,objID.toString(),srcID);
+		  			  	    	output_result(res,"Failed to add pin to board ", false, currentBoard,objID.toString(),srcID);
 		  			  	    } else {
-		  			  	    	output_result(res,"Successfully added pin to board ", currentBoard,objID.toString(),srcID);
+		  			  	    	output_result(res,"Successfully added pin to board ", true, currentBoard,objID.toString(),srcID);
 		  			  	    	connection.close(); // done with the connection
 		  	    }
 				
@@ -125,10 +135,10 @@ function insert_pin(res, objID, currentBoard) {
 
 exports.add_new_photo = function(req, res){
 	//find_objID(res, req.query.url, req.query.tag, req.query.currentBoard);
-	find_objID(res, req.query.url, req.query.currentBoard);
+	checkValidURL(res, req.query.url, req.query.currentBoard);
 };
 
-function output_result(res,msg,currentBoard,objID,srcID){
+function output_result(res,msg,success, currentBoard,objID,srcID){
 	console.log("output msg:"+msg);
 	console.log("output currentBoard: "+currentBoard);
 	console.log("output objID "+objID);
@@ -136,6 +146,7 @@ function output_result(res,msg,currentBoard,objID,srcID){
 	
 	res.render('add_new_photo',
 			{msg : msg,
+		     state: success,
 		     currentBoard : currentBoard,
 		     objectID : objID,
 		     sourceID : srcID});
