@@ -14,14 +14,19 @@ module.exports.storemongo = function (objectID,sourceID, imageURL) {
 	
 	var imageName = objectID + sourceID + imageType;
 	
+	
     console.log("URL : " + imageURL);
     console.log("imageType: " + imageType );
     console.log("imageName: " + imageName );
     
-	loadBase64Image(imageURL, function (image, prefix) {});
-			
+	loadBase64Image(imageURL, function (image, prefix) {
 		
 		saveImageGrid(imageName, image, db);
+		
+	});
+			
+		
+		
 		
 		//loadImageGrid(imageName, db);	
 		

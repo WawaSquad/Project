@@ -65,7 +65,8 @@ function query_url(objID, srcID){
 		  			  	    		//insert into mongo 
 		  			  	    	console.log("URL is: "+url);
 		  			  	    	var imageType = url.charAt(url.length-3) + url.charAt(url.length-2) +url.charAt(url.length-1);
-		  			  	    	if(imageType.toUpperCase()=="JPG"||imageType.toUpperCase()=="PNG"){
+		  			  	    	if(imageType.toUpperCase()=="JPG"||imageType.toUpperCase()=="PNG"||imageType.toUpperCase()=="BMP"||imageType.toUpperCase()=="GIF"){
+		  			  	    	console.log("It is an image check it if it is chached");
 		  			  	    		check_isCached(objID, srcID,url);
 		  			  	    	}
 		  			  	    
@@ -84,7 +85,7 @@ function check_isCached(objID,srcID,url){
 	    if ( err ) {
 	    	console.log(err);f
 	    } else {
-	    	query="SELECT isCached IS from Object where id="+objID+" and source='"+ 
+	    	query="SELECT isCached from Object where id="+objID+" and source='"+ 
 	    		srcID+"'";
 		  		connection.execute(query, 
 		  			 [], 
@@ -96,7 +97,7 @@ function check_isCached(objID,srcID,url){
 		  			  	    	console.log(srcID);
 		  			  	    } else {
 		  			  	    	connection.close(); // done with the connection
-		  			  	    	var isCached= results[0].IS;
+		  			  	    	var isCached= results[0].ISCACHED;
 		  			  	    	console.log("Cached or not?: "+isCached);
 		  			  	    	if(isCached=='F'){
 		  			  	    	check_pinning_time(objID, srcID,url);
