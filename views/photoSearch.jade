@@ -14,7 +14,7 @@ block content
           .page-header
             h1
             - if(results.length>0)
-              | You might be interested in these results,#{results.length} Photos, you are on #{current_page}page.
+              | You might be interested in these results,#{results.length} Objects, you are on #{current_page}page.
             - else
               | Sorry, we cannot find photos mathing your given tag "#{searchTags}" for Page#{PageNum}
           
@@ -28,7 +28,7 @@ block content
               div.wawa
                -if( inx <= results.length-1 ){
                  
-                 -if (results[inx].ISCACHED == 'T'){
+                 -if (results[inx].ISCACHED == 'T' && results[inx].TYPE == 'photo'){
                    - imageName = results[inx].ID + results[inx].SOURCE + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
                    img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
                    .caption
@@ -39,7 +39,7 @@ block content
                    p
                     | Tags : #{results[inx].TAGS}
                  -}
-                 -else{
+                 -else if (results[inx].TYPE == 'photo'){
                    img(alt='Failed to load', src="#{results[inx].URL}" ,width='300px')
                    .caption
                    h3
@@ -48,6 +48,15 @@ block content
                     | Photo URL is : #{results[inx].URL}
                    p
                     | Tags : #{results[inx].TAGS}
+                 -}
+                 -else{
+                   .caption
+                   h3
+                    | Object ID is: #{results[inx].ID}
+                   p
+                    | Object type is : #{results[inx].TYPE}
+                   p
+                    | Object URL is : #{results[inx].URL}
                  -}
                  
                  - var currentObjIDvalue= results[inx].ID
