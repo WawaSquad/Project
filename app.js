@@ -30,6 +30,7 @@ var add_new_photo=require('./routes/add_new_photo');
 var changePass = require('./routes/changePassword');
 var editTag= require('./routes/editTag');
 var addFriend= require('./routes/addFriend');
+var adminMongo = require('./routes/adminMongo');
 
 var http = require('http');
 var path = require('path');
@@ -85,6 +86,7 @@ app.get('/editTag', editTag.editInfo);
 app.get('/friend',addFriend.friend);
 app.get('/addFriend', addFriend.editInfo);
 
+app.get('/adminMongo', adminMongo.adminMongo);
 //app.get('/success',success.success);
 //app.get('/fail', fail.fail);
 //app.get('/users', user.list);
