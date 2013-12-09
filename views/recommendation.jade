@@ -19,7 +19,7 @@ block content
                
                -if (results[inx].ISCACHED == 'T'){
                    - imageName = results[inx].ID + results[inx].SOURCE + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
-                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='300px') 
                    .caption
                    h3
                     | Photo ID is : #{results[inx].ID}

@@ -16,10 +16,8 @@ function query_db(res,boardName, nextPage) {
 			    	// selecting photos' urls
 			    	//"SELECT P.url FROM Photo P WHERE P.photoid = '1'"
 			    	//"SELECT count(*) From Photo" 
-			    	console.log("executing the query....");
-			    	var query="select Object.url, Object.id  from Object, Pin where Object.type='photo' and Pin.board = '" + boardName +
-		  			"' and Pin.objectId = Object.id and Pin.sourceId=Object.source and Pin.login in (select FriendID from FriendShip where "
-		  			+"FriendShip.login = '"+userID+"')";
+			    	//console.log("executing the query....");
+			    	var query="SELECT comb.url,comb.objectId, comb.sourceId, comb.type, comb.isCached, " + "listagg(T.tag,', ') within group(order by T.tag) TAGS from "+"(select O.url, P.objectId, P.sourceid, O.type, O.iscached from Object O, Pin P " + "WHERE  P.sourceId=O.source and P.login in (select FriendID from FriendShip where " +"FriendShip.login = '"+userID+"') and P.board = '"+boardName+"' " +   "and P.objectId = O.id )comb "+  "LEFT OUTER JOIN Tags T ON comb.objectId=T.id AND comb.sourceId= T.source GROUP BY " + "(comb.url,comb.objectid,comb.sourceid,comb.type, comb.iscached)";
 				  	connection.execute(query,
 				  			   [], 
 				  			   function(err, results) {
@@ -30,10 +28,10 @@ function query_db(res,boardName, nextPage) {
 				  	    	
 				  	    	
 				  	    	connection.close(); // done with the connection
-				  	    	console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
-				  	    	console.log(results.length);
+				  	    	//console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
+				  	    	//console.log(results.length);
 				  	    	
-				  	    	console.log(results);
+				  	    	//console.log(results);
 				  	    	output_photos(res,nextPage,boardName,results);
 				  	    }
 				
@@ -45,20 +43,17 @@ function query_db(res,boardName, nextPage) {
 	}
 
 function output_photos(res,nextPage,boardName,results) {
-	console.log('Sending the result');
+	//console.log('Sending the result');
 	res.render('photos',
 		   {
 		    nextPage : nextPage,
 		    boardName : boardName,
 		    canPin : false,
-			//n_photos_p_page : n_photos_p_page,
-			//n_pages : n_pages,
 			results: results }
 	  );
 }
 
 exports.friendsPhoto = function(req, res){
-  query_db(res, req.query.boardName, req.query.nextPage );
-  console.log(req.query.boardName + ' hi ' + req.query.nextPage  );
+  query_db(res, req.query.boardName, req.query.nextPage );  
 };
 

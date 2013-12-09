@@ -15,9 +15,9 @@ module.exports.storemongo = function (objectID,sourceID, imageURL) {
 	var imageName = objectID + sourceID + imageType;
 	
 	
-    console.log("URL : " + imageURL);
-    console.log("imageType: " + imageType );
-    console.log("imageName: " + imageName );
+    //console.log("URL : " + imageURL);
+    //console.log("imageType: " + imageType );
+    //console.log("imageName: " + imageName );
     
 	loadBase64Image(imageURL, function (image, prefix) {
 		
@@ -68,16 +68,16 @@ function saveImageGrid(imageName, imageData, db){
       // Open the file
       gs.open(function(err, gs) {
     	  if(err) throw err;
-     	 console.log('Open GridStore to save an image..');
+     	 //console.log('Open GridStore to save an image..');
         gs.write(imageData, function(err, gs) {
         	if(err) throw err;
-        	 console.log('Writing the image..');
+        	// console.log('Writing the image..');
           gs.close(function(err, gs) {
         	  if(err) throw err;
-         	 console.log('Closing GS..');
+         	 //console.log('Closing GS..');
         	  
        	         db.close();
-         	console.log('Closing db..');
+         	//console.log('Closing db..');
 
           }); // end of gs.close
         }); // end of gs.write

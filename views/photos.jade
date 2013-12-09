@@ -32,7 +32,7 @@ block content
                -if( inx <= results.length-1 ){
                  -if (results[inx].ISCACHED == 'T' && results[inx].TYPE == 'photo'){
                    - imageName = results[inx].OBJECTID + results[inx].SOURCEID + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
-                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='300px') 
                    .caption
                   h3
                     | Tags : #{results[inx].TAGS}
@@ -40,7 +40,7 @@ block content
                     | GridFS Item : #{imageName}
                  -}
                  -else if (results[inx].TYPE == 'photo'){
-                   img(alt='Failed to load', src="#{results[inx].URL}")
+                   img(alt='Failed to load', src="#{results[inx].URL}", width='300px')
                    .caption
                   h3
                     | Tags : #{results[inx].TAGS}

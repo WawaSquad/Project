@@ -18,7 +18,7 @@ function query_db(res,boardName, nextPage) {
 			    	//"SELECT count(*) From Photo" 
 			    	//
 			    	console.log("fetching the photos....");
-			    	query="select comb.url,comb.objectId, comb.sourceId, comb.type, comb.isCached, listagg(T.tag,', ') within group(order by T.tag) TAGS from "+
+			    	var query="select comb.url,comb.objectId, comb.sourceId, comb.type, comb.isCached, listagg(T.tag,', ') within group(order by T.tag) TAGS from "+
 			    	"(select O.url, P.objectId, P.sourceid, O.type, O.iscached from Object O, Pin P where  P.sourceId=O.source and P.login ='"+userID+"' and P.board = '"+boardName+"' and P.objectId = O.id )comb "+
 			    	"left outer join Tags T On comb.objectId=T.id and comb.sourceId= T.source group by (comb.url,comb.objectid,comb.sourceid,comb.type, comb.iscached)";
 				  	connection.execute( query, 

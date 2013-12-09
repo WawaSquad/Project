@@ -63,7 +63,7 @@ block content
                  - var currentSrcIDvalue= results[inx].SOURCE
                       .modal-body
                        form(method='get',action='/add_rating')
-                          input(name='score',type='text',placeholder='integer value from 0 to 10')
+                          input(name='score',type='text',placeholder='Rate from 0 to 5')
                           input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                           input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                           button.btn.btn-primary(type='submit') Rate it!

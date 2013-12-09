@@ -129,22 +129,19 @@ function loadImageGrid (imageName,imageType, res){
 	 	    // Open the file		            
 	 	    gs2.open(function(err, gs2) {
 	 	    	if(err) throw err;
-	         	 console.log('Opening GS..');
+	         	 //console.log('Opening GS..');
 	 	      // Set the pointer of the read head to the start of the gridstored file
 	 	      gs2.seek(0, function() {
 	 	    	  if(err) throw err;
-	 	        	 console.log('Pointing the head of the image to read..');
+	 	        	 //console.log('Pointing the head of the image to read..');
 	 	        // Read the entire file
 	 	    	 gs2.read(function(err, imageData) {		               
 	 	    		 if(err) throw err;
-	 	        	 console.log('Reading the image..');
+	 	        	 //console.log('Reading the image..');
 	 	        	 gs2.close(function(err, gs2) {
 	 	        		 if(err) throw err;
-	 		        	 console.log('Done reading. Closing GS..');	 	          
-	 	          			//db.close();
-	 	          			console.log('Closing the db..');
-	 	          			
-	 	          			console.log('Load the image done..');
+	 		        	 //console.log('Done reading. Closing GS..');	 	          
+	 	          			//db.close();	 	          			
 	 	          			
 	 	          			res.writeHead('200', {'Content-Type': 'image/' + imageType });	          		    
 	 	          		    res.end(new Buffer(imageData).toString(),'base64');	 	          		   
