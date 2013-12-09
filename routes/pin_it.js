@@ -20,7 +20,7 @@ function query_db(res, currentObjID, currentSrcID) {
 		  	    	console.log(err);
 		  	    } else {
 		  	    	connection.close(); // done with the connection
-		  	    	console.log(results);
+		  	    	//console.log(results);
 		  	    	output_pins(res, results, currentObjID, currentSrcID);
 		  	    }
 		

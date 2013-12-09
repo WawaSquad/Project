@@ -57,9 +57,9 @@ function query_db(res, nextPage, boardName, del_objectID,del_sourceID,deleted) {
 				  	    
 				  	    	connection.close(); // done with the connection
 				  	    	console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
-				  	    	console.log(results.length);
+				  	    	//console.log(results.length);
 				  	    	
-				  	    	console.log(results);
+				  	    	//console.log(results);
 				  	    	output_photos(res,nextPage,boardName,results, del_objectID,del_sourceID,deleted);
 				  	    }
 				

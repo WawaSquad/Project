@@ -44,8 +44,8 @@ exports.registerUser = function(req, res){
 				  	    	console.log(err);
 				  	    } else {
 				  	    	connection.close(); // done with the connection
-							console.log("User Check Successful");
-							console.log(results);
+							//console.log("User Check Successful");
+							//console.log(results);
 							//Updating the global variable
 							
 							

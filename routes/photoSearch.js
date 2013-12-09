@@ -19,7 +19,7 @@ function query_db(res,searchTags,PageNum) {
 		  	intPageNum=parseInt(PageNum);
 	    	var query="SELECT Object.id, Object.url, Object.source, Object.type, listagg(Tags.tag,', ') within group(order by Tags.tag) TAGS, Object.isCached FROM Object,Tags WHERE Tags.tag LIKE '%" + searchTags + 
   			"%' AND Object.id=Tags.id AND Object.source=Tags.source GROUP BY (Object.id, Object.url, Object.source, Object.type, Object.isCached) ";
-	    	console.log(query);
+	    	//console.log(query);
 		  	connection.execute(query, 
 		  			   [], 
 		  			   function(err, results) {
