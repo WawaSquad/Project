@@ -36,7 +36,7 @@
 			  	    } else {
 			  	    	connection.close(); // done with the connection
 						console.log("Login Successful");
-						console.log(results);
+						//console.log(results);
 						//Updating the global variable
 						
 						
@@ -61,7 +61,7 @@
 					    		 else
 					    		{	 
 							fail = false;
-							console.log("Login Sucess");
+							//console.log("Login Sucess");
 							global.userID = userID;
 
 							//show_user_info(res1,userID);
