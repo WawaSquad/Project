@@ -29,9 +29,8 @@ function query_db(res,boardName, nextPage) {
 				  	    } else {			  	    	
 				  	    	connection.close(); // done with the connection
 				  	    	console.log('Successfully executed the query for the userID = ' + userID +' and BoardName =' + boardName);
-				  	    	console.log(results.length);
-				  	    	
-				  	    	console.log(results);				  	    
+				  	    					  	    	
+				  	    	//console.log(results);				  	    
 				  	    	output_photos(res,nextPage,boardName,results);
 				  	    }
 				
@@ -50,8 +49,6 @@ function output_photos(res,nextPage,boardName,results) {
 		    nextPage : nextPage,
 		    boardName : boardName,
 		    canPin : true,
-			//n_photos_p_page : n_photos_p_page,
-			//n_pages : n_pages,
 			results: results }
 	  );
 }
