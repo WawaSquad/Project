@@ -19,18 +19,18 @@ block content
         .col-md-12.column
           .page-header
             h1
-              | #{results.length} Photos, #{n_pages} page(s), you are on #{current_page}page.
+              | #{results.length} Objects, #{n_pages} page(s), you are on #{current_page}page.
             h3
               | Photos of a board you selected : #{boardName}           
             h3
-              | We display #{n_photos_p_page} photos per page currently.
+              | We display #{n_photos_p_page} objects per page currently.
           
           .row
              .col-md-1
              .col-md-8
               -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
                -if( inx <= results.length-1 ){
-                 -if (results[inx].ISCACHED == 'T'){
+                 -if (results[inx].ISCACHED == 'T' && results[inx].TYPE == 'photo'){
                    - imageName = results[inx].OBJECTID + results[inx].SOURCEID + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
                    img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
                    .caption
@@ -39,14 +39,23 @@ block content
                   p
                     | GridFS Item : #{imageName}
                  -}
-                 -else{
+                 -else if (results[inx].TYPE == 'photo'){
                    img(alt='Failed to load', src="#{results[inx].URL}")
                    .caption
                   h3
                     | Tags : #{results[inx].TAGS}
                   p
                     | Photo URL is : #{results[inx].URL}
-                 -}                
+                 -}
+                 -else{
+                   .caption
+                   h3
+                     | Object ID is: #{results[inx].OBJECTID}
+                   p
+                     | Object type is : #{results[inx].TYPE}
+                   p
+                     | Object URL is: #{results[inx].URL}
+                  -}                
                   p
                  - var currentObjIDvalue= results[inx].OBJECTID
                  - var currentSrcIDvalue= results[inx].SOURCEID
