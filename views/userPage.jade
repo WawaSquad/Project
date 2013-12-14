@@ -60,11 +60,11 @@ block content
               h3 
                  | Your Interest: 
               ol 
-              -for (var inx = 0; inx < interest.length; inx++)
-                -if (interest.length <=10)
+              -for (var inx = 0; inx < interest.length; inx++){
+                -if (inx <=10)
                 
                   li=interest[inx].INTEREST+" "
-                
+                -}
        
          
           .row.clearfix
