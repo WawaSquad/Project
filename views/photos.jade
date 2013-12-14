@@ -4,9 +4,10 @@ block content
     -  var inx = 0;
     -  var page_nation_length = 5;
     -  var page_section = 0;
-    -  var n_photos_p_page = 5;
+    -  var n_photos_p_page = 9;
     -  var n_pages = Math.ceil(results.length/n_photos_p_page);
     -  var imageName={};
+    -  var pic_count=1;
      
     if deleted == true 
        .alert.alert-warning Successfully removed chosen photo!
@@ -16,77 +17,86 @@ block content
     .container
      
       .row.clearfix
-        .col-md-12.column
+        .col-12.column
           .page-header
             h1
               | #{results.length} Objects, #{n_pages} page(s), you are on #{current_page}page.
             h3
               | Photos of a board you selected : #{boardName}           
             h3
-              | We display #{n_photos_p_page} objects per page currently.
+              | We display #{n_photos_p_page} photos per page currently.
           
-          .row
-             .col-md-1
-             .col-md-8
-              -for (inx = (current_page -1) * n_photos_p_page; inx < (current_page -1) * n_photos_p_page + n_photos_p_page; inx++){
-               -if( inx <= results.length-1 ){
-                 -if (results[inx].ISCACHED == 'T' && results[inx].TYPE == 'photo'){
-                   - imageName = results[inx].OBJECTID + results[inx].SOURCEID + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
-                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='300px') 
+        .row.clearfix
+          .col-12
+           -for (inx =((current_page -1) *  n_photos_p_page); inx < ((current_page -1) * n_photos_p_page )+ n_photos_p_page; inx +=3){
+         
+            -if (pic_count == 1 || pic_count == 4 || pic_count == 7){
+             .row
+             
+            -}
+              - for ( var i = 0; i <3; i++, pic_count++){
+              .col-4             
+               div.wawa
+                -if( inx+i <= results.length-1 ){
+                 -if (results[inx+i].ISCACHED == 'T' && results[inx+i].TYPE=='photo'){
+                   - imageName = results[inx+i].OBJECTID + results[inx+i].SOURCEID + results[inx+i].URL.charAt(results[inx+i].URL.length-3) + results[inx+i].URL.charAt(results[inx+i].URL.length-2) +results[inx+i].URL.charAt(results[inx+i].URL.length-1);
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='200px') Cached Object !!
                    .caption
+    
                   h3
-                    | Tags : #{results[inx].TAGS}
+                    | Tags : #{results[inx+i].TAGS}
                   p
-                    | GridFS Item : #{imageName}
+                    | GridFS Item : #{imageName}#{count}
                  -}
-                 -else if (results[inx].TYPE == 'photo'){
-                   img(alt='Failed to load', src="#{results[inx].URL}", width='300px')
+                 -else if(results[inx+i].TYPE == 'photo'){
+                   img(alt='Failed to load', src="#{results[inx+i].URL}", width='200px')
                    .caption
                   h3
-                    | Tags : #{results[inx].TAGS}
+                    | Tags : #{results[inx+i].TAGS} 
                   p
-                    | Photo URL is : #{results[inx].URL}
+                    | Photo URL is : #{results[inx+i].URL}
                  -}
                  -else{
-                   .caption
-                   h3
-                     | Object ID is: #{results[inx].OBJECTID}
-                   p
-                     | Object type is : #{results[inx].TYPE}
-                   p
-                     -var link = results[inx].URL
-                   P Object URL is: #{results[inx].URL}
-                   a( href=link, target="_blank") Click Here To Open 
-                  -}                
+                  .caption
+                  h3
+                    | Object ID is : #{results[inx+i].OBJECTID}
                   p
-                 - var currentObjIDvalue= results[inx].OBJECTID
-                 - var currentSrcIDvalue= results[inx].SOURCEID
+                    | Object type is : #{results[inx+i].TYPE}
+                  p
+                    -var link = results[inx+i].URL
+                  p Object URL is : #{results[inx+i].URL}
+                  a( href=link, target="_black") Click here to Open
+                 -}
+                  p
+                 - var currentObjIDvalue= results[inx+i].OBJECTID
+                 - var currentSrcIDvalue= results[inx+i].SOURCEID
                  - var currentBoardName= boardName
                   p
-                      .modal-body
                        form(method='get',action='/add_rating')
                           input(name='score',type='text',placeholder='integer value from 0 to 5')
                           input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                           input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                           button.btn.btn-primary(type='submit') Rate it!
                           
-                      .modal-body
+    
                        form(method='get',action='/pin_it')
                          input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                          input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                          input(type='hidden', name='cur_board', value=currentBoardName)
                          input(type='hidden', name='curr_page', value=current_page)
                          button.btn.btn-primary(type='submit') Pin it!
-                         p
+                         
                          button.btn.btn-primary(type='button', onclick="JavaScript:this.form.action='/removePhoto';this.form.submit()") Remove it!
                         
                          
                            
-               -}
+               -}               
               -}
-        
+             -} 
+      
+      .row.clearfix
+
           -if (canPin) {
-             .modal-body
                form(method='get',action='/add_new_photo')
                  input(name='url',type='text',placeholder='url of photo you want to pin')
                  
@@ -130,4 +140,4 @@ block content
               a(href='/photos'+'?boardName=#{boardName}&nextPage=#{n_next}') Next
             li
               a(href='/photos'+'?boardName=#{boardName}&nextPage=#{n_pages}') Last
-              
+                            
