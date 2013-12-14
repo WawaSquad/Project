@@ -54,7 +54,9 @@ block content
                    p
                      | Object type is : #{results[inx].TYPE}
                    p
-                     | Object URL is: #{results[inx].URL}
+                     -var link = results[inx].URL
+                   P Object URL is: #{results[inx].URL}
+                   a( href=link, target="_blank") Click Here To Open 
                   -}                
                   p
                  - var currentObjIDvalue= results[inx].OBJECTID
