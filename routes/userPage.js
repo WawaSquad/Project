@@ -122,7 +122,7 @@ function query_db_recommendation(res,userID) {
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"' ) comb left outer join Tags on Tags.id=comb.id and Tags.source=comb.source GROUP BY (comb.id, comb.source, comb.url, comb.isCached))";
 	    	//console.log(subquery5);
 	    	
-	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" UNION "+subquery3+" UNION "+subquery4+" MINUS "+subquery5+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
+	    	var query="SELECT * FROM (SELECT * FROM (("+subquery1+" UNION "+subquery2+" UNION "+subquery3+" UNION "+subquery4+") MINUS "+subquery5+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
 	    	//console.log(query);
 	    	connection.execute(query, 
 		  			   [], 
@@ -167,7 +167,7 @@ function query_db_recommendation2(res,userID) {
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"' and Tags.id=Object.id and Tags.source=Object.source GROUP BY (Object.id, Object.source, Object.url, Object.isCached))";
 	    	//console.log(subquery3);
 	    	
-	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" MINUS "+subquery3+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
+	    	var query="SELECT * FROM (SELECT * FROM (("+subquery1+" UNION "+subquery2+") MINUS "+subquery3+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
 	    	//console.log(query);
 	    	connection.execute(query, 
 		  			   [], 

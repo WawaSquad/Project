@@ -53,7 +53,7 @@ function query_db_recommendation(res) {
 	    	"AND Pin.objectId=Object.id AND Pin.sourceId=Object.source AND Users.login='"+userID+"' ) comb left outer join Tags on Tags.id=comb.id and Tags.source=comb.source GROUP BY (comb.id, comb.source, comb.url, comb.isCached))";
 	    	//console.log(subquery7);
 	    	
-	    	var query="SELECT * FROM (SELECT * FROM ("+subquery1+" UNION "+subquery2+" UNION "+subquery3+" UNION "+subquery4+" UNION "+subquery5+" UNION "+subquery6+" MINUS "+subquery7+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
+	    	var query="SELECT * FROM (SELECT * FROM (("+subquery1+" UNION "+subquery2+" UNION "+subquery3+" UNION "+subquery4+" UNION "+subquery5+" UNION "+subquery6+") MINUS "+subquery7+") ORDER BY dbms_random.value) WHERE ROWNUM<=5"
 	    	//console.log(query);
 	    	connection.execute(query, 
 		  			   [], 
