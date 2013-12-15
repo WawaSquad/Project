@@ -30,24 +30,20 @@ block content
                  
                  -if (results[inx].ISCACHED == 'T' && results[inx].TYPE == 'photo'){
                    - imageName = results[inx].ID + results[inx].SOURCE + results[inx].URL.charAt(results[inx].URL.length-3) + results[inx].URL.charAt(results[inx].URL.length-2) +results[inx].URL.charAt(results[inx].URL.length-1);
-                   img(alt='Failed to load', src="/mongoimages/#{imageName}") Cached Object !!
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}") 
                    .caption
                    h3
-                    | Photo ID is : #{results[inx].ID}
-                   p
-                    | GridFS Item : #{imageName}
+                    | This is a GridFS Item : #{imageName}                 
                    p
                     | Tags : #{results[inx].TAGS}
                  -}
                  -else if (results[inx].TYPE == 'photo'){
                    img(alt='Failed to load', src="#{results[inx].URL}" ,width='300px')
                    .caption
-                   h3
-                    | Photo ID is : #{results[inx].ID}
+                   h3                    
+                    a(href='#{results[inx].URL}', target="_black") Object ID: #{results[inx].ID}
                    p
-                    | Photo URL is : #{results[inx].URL}
-                   p
-                    | Tags : #{results[inx].TAGS}
+                    | Tags : #{results[inx].TAGS}                  
                  -}
                  -else{
                    .caption
@@ -56,7 +52,8 @@ block content
                    p
                     | Object type is : #{results[inx].TYPE}
                    p
-                    | Object URL is : #{results[inx].URL}
+                    a(href='#{results[inx].URL}', target="_black") #{results[inx].URL}
+                    
                  -}
                  
                  - var currentObjIDvalue= results[inx].ID

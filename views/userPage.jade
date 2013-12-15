@@ -75,8 +75,7 @@ block content
             h1
               | #{msg} 
 
-          .row
-            .col-md-1
+          .row            
             .col-md-6
              -for (inx = 0; inx < 3; inx++){
               div.wawa  
@@ -86,19 +85,15 @@ block content
                    img(alt='Failed to load', src="/mongoimages/#{imageName}", width='400px') 
                    .caption
                    h3
-                    | Photo ID is : #{recommendationResults[inx].ID}
-                   p
-                    | GridFS Item : #{imageName}
+                    | This is a GridFS Item : #{imageName}                  
                    p
                     | Tags : #{recommendationResults[inx].TAGS}
                  -}
                  -else{
                    img(alt='Failed to load', src="#{recommendationResults[inx].URL}", width='400px')
                    .caption
-                   h3
-                    | Photo ID is : #{recommendationResults[inx].ID}
-                   p
-                    | Photo URL is : #{recommendationResults[inx].URL}
+                   h3                    
+                    a(href='#{recommendationResults[inx].URL}', target="_black") Object ID: #{recommendationResults[inx].ID}
                    p
                     | Tags : #{recommendationResults[inx].TAGS}
                  -}

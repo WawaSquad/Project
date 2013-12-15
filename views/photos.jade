@@ -22,12 +22,9 @@ block content
             h1
               | #{results.length} Objects, #{n_pages} page(s), you are on #{current_page}page.
             h3
-              | Photos of a board you selected : #{boardName}           
-            h3
-              | We display #{n_photos_p_page} photos per page currently.
-          
+              | Board Name : #{boardName}
         .row.clearfix
-          .col-12
+          .col-md-12
            -for (inx =((current_page -1) *  n_photos_p_page); inx < ((current_page -1) * n_photos_p_page )+ n_photos_p_page; inx +=3){
          
             -if (pic_count == 1 || pic_count == 4 || pic_count == 7){
@@ -35,26 +32,26 @@ block content
              
             -}
               - for ( var i = 0; i <3; i++, pic_count++){
-              .col-4             
+              .col-md-4             
                div.wawa
                 -if( inx+i <= results.length-1 ){
                  -if (results[inx+i].ISCACHED == 'T' && results[inx+i].TYPE=='photo'){
                    - imageName = results[inx+i].OBJECTID + results[inx+i].SOURCEID + results[inx+i].URL.charAt(results[inx+i].URL.length-3) + results[inx+i].URL.charAt(results[inx+i].URL.length-2) +results[inx+i].URL.charAt(results[inx+i].URL.length-1);
-                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='200px') Cached Object !!
+                   img(alt='Failed to load', src="/mongoimages/#{imageName}", width='200px')
                    .caption
     
                   h3
-                    | Tags : #{results[inx+i].TAGS}
+                    | This is a GridFS Item : #{imageName}
                   p
-                    | GridFS Item : #{imageName}#{count}
+                    | Tags : #{results[inx+i].TAGS}
                  -}
                  -else if(results[inx+i].TYPE == 'photo'){
                    img(alt='Failed to load', src="#{results[inx+i].URL}", width='200px')
-                   .caption
-                  h3
-                    | Tags : #{results[inx+i].TAGS} 
-                  p
-                    | Photo URL is : #{results[inx+i].URL}
+                   .caption                  
+                  h3                    
+                    a(href='#{results[inx+i].URL}', target="_black") Object ID: #{results[inx+i].OBJECTID}
+                   p
+                    | Tags : #{results[inx+i].TAGS}
                  -}
                  -else{
                   .caption
@@ -93,8 +90,9 @@ block content
                -}               
               -}
              -} 
-      
-      .row.clearfix
+        .col-12
+         .col-12
+          .row.clearfix
 
           -if (canPin) {
                form(method='get',action='/add_new_photo')
