@@ -1,40 +1,28 @@
+// Database setup 
 var MongoDb = require("mongodb"),
     db = new MongoDb.Db("test", new MongoDb.Server("localhost", 27017, {auto_reconnect: true}, {}),{fsync:false}),
     fs = require("fs");
+
+// Gridstore initiation
 var GridStore = MongoDb.GridStore;
 var assert = require('assert');
 
 module.exports.storemongo = function (objectID,sourceID, imageURL) {
-	//var objectID = req.query.objectID;
-	//var sourceID = req.query.sourceID;
-   // var imageURL = req.query.url;
-
-	
+		
+	// set the image type as the last three characters of URL 
+	// ex) jpg, png, gif, bmp
 	var imageType = imageURL.charAt(imageURL.length-3) + imageURL.charAt(imageURL.length-2) +imageURL.charAt(imageURL.length-1);
 	
+	// Image name is objectID + sourceID + imageType
 	var imageName = objectID + sourceID + imageType;
 	
-	
-    //console.log("URL : " + imageURL);
-    //console.log("imageType: " + imageType );
-    //console.log("imageName: " + imageName );
-    
-	loadBase64Image(imageURL, function (image, prefix) {
-		
-		saveImageGrid(imageName, image, db);
-		
+	// DownLoad image from URL + save the image to the MongoDB 
+	loadBase64Image(imageURL, function (image, prefix) {	
+		//image is returned in base64 format
+		saveImageGrid(imageName, image, db);		
 	});
 			
-		
-		
-		
-		//loadImageGrid(imageName, db);	
-		
-	//}); // end of loadBase64		 
-    
-	// render a new page
-	//res.render('mongoreq');
-			   
+		   
 };
 
 var loadBase64Image = function (url, callback) {
@@ -56,13 +44,10 @@ var loadBase64Image = function (url, callback) {
     });
 };
 
+
 function saveImageGrid(imageName, imageData, db){
 
-	 db.open(function(err, db) {
-		//  if(err) throw err;
-	    	
-		//   	 console.log('Open db to save an image..');	 
-	
+	 db.open(function(err, db) {	
       // Create a new file
       var gs = new GridStore(db, imageName, "w");
       // Open the file
@@ -77,12 +62,10 @@ function saveImageGrid(imageName, imageData, db){
          	 //console.log('Closing GS..');
         	  
        	         db.close();
-         	//console.log('Closing db..');
 
           }); // end of gs.close
         }); // end of gs.write
       }); // end of gs.open
 }); // end of db.open
 	
-      //db.open(function(err, db) {});
 }

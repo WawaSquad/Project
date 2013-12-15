@@ -122,9 +122,9 @@ app.get('/mongoimages/:imgtag', function(req, res) {
 function loadImageGrid (imageName,imageType, res){
 
 	 
-	 	//if(err) throw err;
+	 
 	 	//console.log('Opening db to retreive an image');
-	 		 // Define the file we wish to read
+	 		 // Define the file we want to read
 	 	    var gs2 = new GridStore(db, imageName, "r");
 	 	    // Open the file		            
 	 	    gs2.open(function(err, gs2) {
@@ -141,11 +141,11 @@ function loadImageGrid (imageName,imageType, res){
 	 	        	 gs2.close(function(err, gs2) {
 	 	        		 if(err) throw err;
 	 		        	 //console.log('Done reading. Closing GS..');	 	          
-	 	          			//db.close();	 	          			
-	 	          			
+	 	          		 	          			
+	 	          			// displaying the retrieved image 
 	 	          			res.writeHead('200', {'Content-Type': 'image/' + imageType });	          		    
 	 	          		    res.end(new Buffer(imageData).toString(),'base64');	 	          		   
-	 	          		   // res.end(data,'binary');
+	 	          		
 	 	          }); // end of gs2.close
 	 	        }); // end of gs2. read
 	 	      }); // end of gs2.seek
