@@ -123,7 +123,7 @@ function query_db2(res,userID,password,surname,givenname,email,affiliation) {
 function resultSuccess(res,success) {
 	res.render('signin',
 		  {
-	      success: success,
+	      success: success = true,
 	      fail: fail =false
 			}	
 	
@@ -133,7 +133,7 @@ function resultSuccess(res,success) {
 	function resultFail(res,fail) {
 		res.render('register',
 			  {
-		      fail: fail
+		      fail: fail = true
 	
 				}	
 		

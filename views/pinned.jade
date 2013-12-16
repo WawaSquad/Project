@@ -1,12 +1,12 @@
 extends layout2
 block content
   .container
-   form
-   | #{msg} #{boardName}
-   p
-   | Want to see your board with your new pin? 
-   p
+   .alert.alert-warning #{msg} #{boardName}
+   - var board=boardName
    
-   a(href='/photos'+'?boardName=#{boardName}&nextPage=1')  ~~Click Here~~
+   form(action='/photos', method='get')
+     input(type='hidden', name='boardName', value=board)
+     input(type='hidden', name='nextPage', value=1)
+     button.btn.btn-default(type='submit') GO back to Board
    
    

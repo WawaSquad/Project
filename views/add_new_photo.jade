@@ -1,15 +1,23 @@
 extends layout2
 block content
   .container
-   form
-   | #{msg} #{currentBoard} for Object with ID #{objectID} from #{sourceID}
-   p
-   | What's next? 
+   .alert.alert-warning #{msg} #{currentBoard} for Object with ID #{objectID} from #{sourceID}
+   - var board=currentBoard
+   - var obj=objectID
+   - var source=sourceID
+   
+   form(action='/photos', method='get')
+     input(type='hidden', name='boardName', value=board)
+     input(type='hidden', name='nextPage', value=1)
+     button.btn.btn-default(type='submit') GO back to Board
    p
    
-   a(href='/photos'+'?boardName=#{currentBoard}&nextPage=1')  ~~Go back to Board~~
-   p
    -if(state){
-   a(href='/tag'+'?boardName=#{currentBoard}&objID=#{objectID}&srcID=#{sourceID}')  ~~Add Tags~~
+     form(action='/tag', method='get')
+       input(type='hidden', name='boardName', value=board)
+       input(type='hidden', name='objID', value=obj)
+       input(type='hidden', name='srcID', value=source)
+       button.btn.btn-default(type='submit') Add Tags
+
    -}
    

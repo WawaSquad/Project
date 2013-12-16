@@ -20,9 +20,9 @@ block content
         .col-12.column
           .page-header
             h1
-              | #{results.length} Objects, #{n_pages} page(s), you are on #{current_page}page.
-            h3
               | Board Name : #{boardName}
+            h3
+              | #{results.length} Objects
         .row.clearfix
           .col-md-12
            -for (inx =((current_page -1) *  n_photos_p_page); inx < ((current_page -1) * n_photos_p_page )+ n_photos_p_page; inx +=3){
@@ -39,7 +39,6 @@ block content
                    - imageName = results[inx+i].OBJECTID + results[inx+i].SOURCEID + results[inx+i].URL.charAt(results[inx+i].URL.length-3) + results[inx+i].URL.charAt(results[inx+i].URL.length-2) +results[inx+i].URL.charAt(results[inx+i].URL.length-1);
                    img(alt='Failed to load', src="/mongoimages/#{imageName}", width='200px')
                    .caption
-    
                   h3
                     | This is a GridFS Item : #{imageName}
                   p
@@ -89,18 +88,16 @@ block content
                            
                -}               
               -}
-             -} 
-        .col-12
-         .col-12
-          .row.clearfix
+             -}
 
-          -if (canPin) {
-               form(method='get',action='/add_new_photo')
-                 input(name='url',type='text',placeholder='url of photo you want to pin')
+      .row.clearfix
+         -if (canPin) {
+             form(method='get',action='/add_new_photo')
+               input(name='url',type='text',placeholder='url of photo you want to pin')
                  
-                 input(type='hidden', name='currentBoard', value=boardName)
-                 button.btn.btn-primary(type='submit') Pin New Photo!   
-          -} 
+               input(type='hidden', name='currentBoard', value=boardName)
+               button.btn.btn-primary(type='submit') Pin New Photo!   
+         -} 
            
          -if (current_page > 1)
             - n_prev = parseInt(current_page) - 1;              

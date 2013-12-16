@@ -13,7 +13,7 @@ block content
           .row
             .col-md-1
             .col-md-6
-             -for (inx = 0; inx < 6; inx++){  
+             -for (inx = 0; inx < 9; inx++){  
               div.wawa    
                -if( inx <= results.length-1 ){
                
@@ -22,29 +22,25 @@ block content
                    img(alt='Failed to load', src="/mongoimages/#{imageName}", width='300px') 
                    .caption
                    h3
-                    | Photo ID is : #{results[inx].ID}
+                    | This is a GridFS Item : #{imageName}
                    p
-                    | GridFS Item : #{imageName}
-                   p
-                    | Tags : #{results[inx].TAGS}
+                    | Tags : #{results[inx].TAGS}                   
                  -}
                  
                -else{
                 img(alt='Failed to load', src="#{results[inx].URL}", width='300px')
                 .caption
-                  h3
-                    | Photo ID is : #{results[inx].ID}
+                  h3                    
+                    a(href='#{results[inx].URL}', target="_black") Object ID: #{results[inx].ID}
                   p
-                    | Photo URL is : #{results[inx].URL}
-                  p  
-                    | Tags : #{results[inx].TAGS}
+                    | Tags : #{results[inx].TAGS}                 
                 -}
                  
                  - var currentObjIDvalue= results[inx].ID
                  - var currentSrcIDvalue= results[inx].SOURCE
                       .modal-body
                        form(method='get',action='/add_rating')
-                          input(name='score',type='text',placeholder='integer value from 0 to 10')
+                          input(name='score',type='text',placeholder='integer value from 0 to 5')
                           input(type='hidden', name='currentObjID', value=currentObjIDvalue)
                           input(type='hidden', name='currentSrcID', value=currentSrcIDvalue)
                           button.btn.btn-primary(type='submit') Rate it!

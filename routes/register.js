@@ -1,3 +1,9 @@
 exports.register = function(req, res){
-  res.render('register');
+	res.render('register',
+			  {
+		      fail: fail = false
+	
+				}	
+		
+		  );
 };

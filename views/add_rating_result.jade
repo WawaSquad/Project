@@ -1,12 +1,10 @@
 extends layout2
 block content
   .container
-   form
-   | #{msg} #{photoID} from GROUP of #{sourceID}
-   p
-   | Wanna go back to previous Board Page?  
+   .alert.alert-warning #{msg} #{photoID} from GROUP of #{sourceID}
+   
    p
    
-   a(href='JavaScript:history.go(-1)') ~~GO BACK~~
+   a.btn.btn-primary.btn-lg.active(href='JavaScript:history.go(-1)', role='button') Go back
    
    
